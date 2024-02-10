@@ -1,3 +1,3 @@
 ## Authors
   * Marina Hampton
-  * [@Zareeb Lorenzana](https://github.com/Zareeb)
+  * [Zareeb Lorenzana](https://github.com/Zareeb)
