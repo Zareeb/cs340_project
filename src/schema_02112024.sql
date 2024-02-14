@@ -1,6 +1,8 @@
 /*
-Group 181: Marina Hampton & Zareeb Lorenzana
+
+Group 181: Marina Hampton and Zareeb Lorenzana
 Description: Database of Simple Social app forward engineered from MySQL Workbench and db dump from MariaDB
+
 */
 
 
