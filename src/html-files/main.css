@@ -1,0 +1,13 @@
+table {
+    border: solid;
+}
+
+table tr td {
+    text-align: center;
+}
+
+#postBody {
+    width: 100%;
+    max-width: 100%;
+    max-height: 200px;
+}

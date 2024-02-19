@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Simple Social - Posts</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='main.js'></script>
+</head>
+<body>
+    <header>
+        <h1>
+        <a href="index.html">
+            Simple Social
+        </a>
+        </h1>
+    </header>
+
+    <nav class="menu">
+        <a href="index.html">Home</a>
+        <a href="users.html">Users</a>
+        <a href="posts.html">Posts</a>
+        <a href="followers.html">Followers</a>
+        <a href="likes.html">Likes</a>
+        <a href="tags.html">Tags</a>
+    </nav>
+
+    <main>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Edit</th>
+                    <th>postID</th>
+                    <th>userID</th>
+                    <th>postDate</th>
+                    <th>postBody</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+                <tr>
+                    <td><a href=#>Edit</a></td>
+                    <td>1</td>
+                    <td>66</td>
+                    <td>2023-12-05 20:50:00</td>
+                    <td><p>Hello, there!</p></td>
+                    <td><button type="button">Delete</button></td>
+                </tr>
+                <tr>
+                    <td><a href=#>Edit</a></td>
+                    <td>2</td>
+                    <td>501</td>
+                    <td>2023-12-05 20:50:00</td>
+                    <td><p>You're either with me or against me!</p></td>
+                    <td><button type="button">Delete</button></td>
+                </tr>
+                <tr>
+                    <td><a href=#>Edit</a></td>
+                    <td>3</td>
+                    <td>915</td>
+                    <td>2023-12-05 20:50:00</td>
+                    <td><p>Traffic in Coruscant SUCKS!</p></td>
+                    <td><button type="button">Delete</button></td>
+                </tr>
+                <tr>
+                    <td><a href=#>Edit</a></td>
+                    <td>4</td>
+                    <td>666</td>
+                    <td>2023-12-05 20:50:00</td>
+                    <td><p>I am the Senate!</p></td>
+                    <td><button type="button">Delete</button></td>
+                </tr>
+                <tr>
+                    <td><a href=#>Edit</a></td>
+                    <td>5</td>
+                    <td>91</td>
+                    <td>2023-12-05 20:50:00</td>
+                    <td><p>*cough cough*</p></td>
+                    <td><button type="button">Delete</button></td>              
+                </tr>
+                <tr>
+                    <td><a href=#>Edit</a></td>
+                    <td>6</td>
+                    <td>91</td>
+                    <td>2023-12-05 20:50:01</td>
+                    <td><p>I need an inhaler</p></td>
+                    <td><button type="button">Delete</button></td>
+                </tr>
+        </table>
+
+        <br>
+
+        <form action="/" method="POST">
+            <label for="userID">User ID:</label>
+                    <select name="userID" id="userID" required>
+                        <option value="66">66</option>
+                        <option value="91">91</option>
+                        <option value="501">501</option>
+                        <option value="666">666</option>
+                        <option value="915">915</option>
+                    </select>
+        </form>
+
+        <br>
+
+        <form action="/" method="POST">
+            <fieldset>
+                <label for="postBody"></label>
+                <textarea id="postBody"></textarea>
+            
+
+            <form action="/submit" method="POST">
+                <br><input type="submit" value="Submit">
+            </form>
+
+        </fieldset>
+        </form>
+
+    </main>
+    
+    <footer>
+        <p>
+            &copy; 2024 Marina Hampton & Zareeb Lorenzana
+        </p>
+    </footer>
+    
+</body>
+</html>
