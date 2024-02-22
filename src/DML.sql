@@ -104,15 +104,14 @@ UPDATE PostsHasLikes
 SET likedByUserID = NULL
 WHERE likedByUserID = :userID_to_delete;
 
--- get a number of Likes for a Post
-SELECT COUNT(*)
-FROM Likes
-WHERE postID = :postID_selected_from_all_Posts_page;
-
--- get all userIDs who liked the selected Post
-SELECT likedByUserID
-FROM Likes
-WHERE postID = :postID_selected_from_all_Posts_page;
+-- SELECT and show number of likes and likedByUserID of selected Post from dropdown
+SELECT 
+    (SELECT COUNT(*) 
+    FROM Likes 
+    WHERE postID = :postID_selected_from_all_Posts_page) AS likes_count,
+    (SELECT GROUP_CONCAT(likedByUserID) 
+    FROM Likes 
+    WHERE postID = :postID_selected_from_all_Posts_page) AS liked_user_ids;
 
 -- show all Data for all Likes
 SELECT postID, likedByUserID, dateLiked
