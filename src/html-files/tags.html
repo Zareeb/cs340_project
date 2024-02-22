@@ -68,6 +68,33 @@
                 </tr>
         </table>
 
+        <h2>Add Tag</h2>
+
+        <form id="addTagForm">
+        <label for="tagInput">Enter Tag:</label>
+        <input type="text" id="tagInput" name="tagInput">
+        <button type="submit">Add Tag</button>
+        
+        </form>
+
+        <!-- dropdown showing all tags by selected user -->
+        <h2>Tags Used by Selected User</h2>
+
+        <label for="userSelect">Select User:</label>
+        <select id="userSelect">
+            <option value="1">UserID: 1 - RingBearer - Frodo Baggins</option>
+            <option value="2">UserID: 2 - Snips - Ahsoka Tano</option>
+            <option value="3">UserID: 3 - ForeverYoung - Dorian Gray</option>
+        </select>
+    
+        <!-- Tags will be displayed below the dropdown, below is a static example -->
+        <ul id="userTagsList">
+            <li>computerscience</li>
+            <li>rings</li>
+            <li>cats</li>
+        </ul>
+    
+
     </main>
     
     <footer>
