@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Simple Social - Likes</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='main.js'></script>
+</head>
+<body>
+    <header>
+        <h1>
+        <a href="index.html">
+            Simple Social
+        </a>
+        </h1>
+    </header>
+
+    <nav class="menu">
+        <a href="index.html">Home</a>
+        <a href="users.html">Users</a>
+        <a href="posts.html">Posts</a>
+        <a href="followers.html">Followers</a>
+        <a href="likes.html">Likes</a>
+        <a href="tags.html">Tags</a>
+
+    </nav>
+
+    <main>
+        <table>
+            <thead>
+                <tr>
+                    <th>Edit</th>
+                    <th>likeID</th>
+                    <th>postID</th>
+                    <th>likedByUserID</th>
+                    <th>dateLiked</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+                <tr>
+                    <td><a href=#>Edit</a></td>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>91</td>
+                    <td>2023-12-05 20:50:00</td>
+                    <td><input type="checkbox"></td>
+                </tr>
+                <tr>
+                    <td><a href=#>Edit</a></td>
+                    <td>2</td>
+                    <td>3</td>
+                    <td>501</td>
+                    <td>2023-12-05 20:50:00</td>
+                    <td><input type="checkbox"></td>
+                </tr>
+                <tr>
+                    <td><a href=#>Edit</a></td>
+                    <td>3</td>
+                    <td>3</td>
+                    <td>66</td>
+                    <td>2023-12-05 20:50:01</td>
+                    <td><input type="checkbox"></td>
+                </tr>
+                <tr>
+                    <td><a href=#>Edit</a></td>
+                    <td>4</td>
+                    <td>3</td>
+                    <td>91</td>
+                    <td>2023-12-05 20:50:03</td>
+                    <td><input type="checkbox"></td>
+                </tr>
+                <tr>
+                    <td><a href=#>Edit</a></td>
+                    <td>5</td>
+                    <td>3</td>
+                    <td>666</td>
+                    <td>2023-12-05 20:50:10</td>
+                    <td><input type="checkbox"></td>
+                </tr>         
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><button type="button">Delete</button></td>
+                </tr>       
+        </table> 
+        <br>
+        <form>
+            <fieldset>
+                <br><label for="postID"> postID:</label>
+                <input type="text" id="postID" size="10">
+                <br><label for="likedByUserID">likedByUserID:</label>
+                <input type="text" id="likedByUserID" name="likedByUserID" size="10">
+                
+
+            <form action="/submit" method="POST">
+                <br><input type="submit" value="Submit">
+            </form>
+
+            </fieldset>
+        </form>
+    </main>
+    
+    <footer>
+        <p>
+            &copy; 2024 Marina Hampton & Zareeb Lorenzana
+        </p>
+    </footer>
+    
+</body>
+</html>

@@ -1,9 +1,11 @@
 /*
+
 Team 181
 Marina Hampton and Zareeb Lorenzana 
 DDL.SQL - hand authored
 Database of Simple Social App
 Date Updated: 02.15.2024
+
 */
 
 SET FOREIGN_KEY_CHECKS=0;

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Simple Social - Tags</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='main.js'></script>
+</head>
+<body>
+    <header>
+        <h1>
+        <a href="index.html">
+            Simple Social
+        </a>
+        </h1>
+    </header>
+
+    <nav class="menu">
+        <a href="index.html">Home</a>
+        <a href="users.html">Users</a>
+        <a href="posts.html">Posts</a>
+        <a href="followers.html">Followers</a>
+        <a href="likes.html">Likes</a>
+        <a href="tags.html">Tags</a>
+    </nav>
+
+    <main>
+        <table>
+            <thead>
+                <tr>
+                    <th>Edit</th>
+                    <th>tagID</th>
+                    <th>tag</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+                <tr>
+                    <td><a href=#>Edit</a></td>
+                    <td>1</td>
+                    <td>66</td>
+                    <td><button type="button">Delete</button></td>
+                </tr>
+                <tr>
+                    <td><a href=#>Edit</a></td>
+                    <td>2</td>
+                    <td>66</td>
+                    <td><button type="button">Delete</button></td>
+                </tr>
+                <tr>
+                    <td><a href=#>Edit</a></td>
+                    <td>3</td>
+                    <td>501</td>
+                    <td><button type="button">Delete</button></td>
+                </tr>
+                <tr>
+                    <td><a href=#>Edit</a></td>
+                    <td>4</td>
+                    <td>501</td>
+                    <td><button type="button">Delete</button></td>
+                </tr>
+                <tr>
+                    <td><a href=#>Edit</a></td>                    
+                    <td>5</td>
+                    <td>915</td>
+                    <td><button type="button">Delete</button></td>
+                </tr>
+        </table>
+
+        <h2>Add Tag</h2>
+
+        <form id="addTagForm">
+        <label for="tagInput">Enter Tag:</label>
+        <input type="text" id="tagInput" name="tagInput">
+        <button type="submit">Add Tag</button>
+        
+        </form>
+
+        <!-- dropdown showing all tags by selected user -->
+        <h2>Tags Used by Selected User</h2>
+
+        <label for="userSelect">Select User:</label>
+        <select id="userSelect">
+            <option value="1">UserID: 1 - RingBearer - Frodo Baggins</option>
+            <option value="2">UserID: 2 - Snips - Ahsoka Tano</option>
+            <option value="3">UserID: 3 - ForeverYoung - Dorian Gray</option>
+        </select>
+    
+        <!-- Tags will be displayed below the dropdown, below is a static example -->
+        <ul id="userTagsList">
+            <li>computerscience</li>
+            <li>rings</li>
+            <li>cats</li>
+        </ul>
+    
+
+    </main>
+    
+    <footer>
+        <p>
+            &copy; 2024 Marina Hampton & Zareeb Lorenzana
+        </p>
+    </footer>
+    
+</body>
+</html>
