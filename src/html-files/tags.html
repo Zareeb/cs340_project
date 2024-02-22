@@ -27,6 +27,7 @@
     </nav>
 
     <main>
+        <h1>Tags</h1>
         <table>
             <thead>
                 <tr>
@@ -93,6 +94,28 @@
             <li>rings</li>
             <li>cats</li>
         </ul>
+
+        <!-- get Tags from selected Post -->
+
+        <h2>Tags Used by Selected Post</h2>
+        <form>
+            <label for="postID">Select PostID:</label>
+            <select id="postID">
+                <option value="1">PostID: 1</option>
+                <option value="2">PostID: 2</option>
+                <option value="3">PostID: 3</option>
+            </select>
+            <button type="submit">Get Tags</button>
+        </form>
+
+        <!-- Tags will be displayed below the dropdown, below is a static example -->
+        <ul id="postTagsList">
+            <li>computerscience</li>
+            <li>rings</li>
+            <li>cats</li>
+        </ul>
+
+
     
 
     </main>
