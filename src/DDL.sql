@@ -71,11 +71,11 @@ CREATE TABLE Followers (
 CREATE TABLE PostsHasLikes (
     likeID INT(11) AUTO_INCREMENT NOT NULL,
     postID INT(11) NOT NULL,
-    likedByUserID INT(11) NOT NULL,
+    likedByUserID INT(11),
     dateLiked DATETIME NOT NULL, 
     PRIMARY KEY (likeID),
     FOREIGN KEY (postID) REFERENCES Posts (postID) ON DELETE CASCADE ,
-    FOREIGN KEY (likedByUserID) REFERENCES Users (userID) ON DELETE CASCADE,
+    FOREIGN KEY (likedByUserID) REFERENCES Users (userID) ON DELETE SET NULL,
     UNIQUE (likeID)
 );
 
