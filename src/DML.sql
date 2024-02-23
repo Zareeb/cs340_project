@@ -13,26 +13,27 @@ INSERT INTO Users (username, firstName, lastName, email, phoneNumber, signupDate
 VALUES (:userName, ;firstName, :lastName, :email, :phoneNumber, :NOW());
 
 --  Get all Users and relevant information for the Browse/list Users page
-SELECT userID, username, firstName, lastName, email, phoneNumber, signupDate FROM Users;
+SELECT userID, username, firstName, lastName, email, phoneNumber, signupDate FROM Users
+ORDER BY userID; 
 
--- get a single User's data for the Update User's form
-SELECT 
-    userID,
-    username,
-    firstName,
-    lastName,
-    email,
-    phoneNumber,
-    signupDate
-FROM Users 
-WHERE userID = :userID_selected_from_browse_Users_page;
+-- -- get a single User's data for the Update User's form - edit button
+-- SELECT 
+--     userID,
+--     username,
+--     firstName,
+--     lastName,
+--     email,
+--     phoneNumber,
+--     signupDate
+-- FROM Users 
+-- WHERE userID = :userID_selected_from_browse_Users_page;
 
 -- get all Users and their userID, firstName, lastName to populate a dropdown to show Users who have a Post 
-SELECT DISTINCT Users.userID, Users.firstName, Users.lastName
-FROM
-    Users
-JOIN
-    Posts ON Users.userID = Posts.userID;
+-- SELECT DISTINCT Users.userID, Users.firstName, Users.lastName
+-- FROM
+--     Users
+-- JOIN
+--     Posts ON Users.userID = Posts.userID;
 
 -- update a User's data based on submission of the Update User form 
 UPDATE Users SET firstName = :fnameInput, lastName= :lnameInput, email = :emailInput 
@@ -55,6 +56,10 @@ FROM
 LEFT JOIN
     Followers ON Users.userID = Followers.followeeID;
 
+-- TO DO ADD:
+-- TO DO EDIT: 
+
+
 -- DML operations for Posts
 -- ----------------------------------------------
 
@@ -62,7 +67,7 @@ LEFT JOIN
 INSERT INTO Posts (userID, postDate, postBody)
 VALUES (:userID, NOW(), :postBody);
 
--- show all Posts data as well Likes and Tags for list all Posts page
+-- show all Posts data as well Likes and Tags for list all Posts page -- ?
 SELECT
     P.postID,
     P.userID,
@@ -81,7 +86,7 @@ LEFT JOIN
 GROUP BY
     P.postID;
 
--- get all Posts from a select User 
+-- get all Posts from a select User -- ? 
 SELECT Posts.postID, Posts.postDate, Posts.postBody
 FROM Posts
 INNER JOIN
@@ -127,7 +132,7 @@ VALUES (:tag);
 -- show all Tags for browse/list all Tags page
 SELECT * FROM Tags;
 
- -- get Tags from a selected Post
+ -- get Tags from a selected Post - do we move it? 
 SELECT P.*
 FROM Posts P
 JOIN PostsHasTags PT ON P.postID = PT.postID
