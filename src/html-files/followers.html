@@ -31,8 +31,7 @@
         <table>
             <thead>
                 <tr>
-                    <th>Edit</th>
-                    <th>userFollowerID</th>
+                    <th>userRelationshipID</th>
                     <th>followeeID</th>
                     <th>followerID</th>
                     <th>followedSince</th>
@@ -40,53 +39,127 @@
                 </tr>
             </thead>
                 <tr>
-                    <td><a href=#>Edit</a></td>
                     <td>1</td>
                     <td>66</td>
                     <td>91</td>
                     <td>2023-12-05 20:50:00</td>
-                    <td><button type="button">Delete</button></td>
+                    <td><input type="checkbox"></td>
                 </tr>
                 <tr>
-                    <td><a href=#>Edit</a></td>
                     <td>2</td>
                     <td>66</td>
                     <td>501</td>
                     <td>2023-12-05 20:50:00</td>
-                    <td><button type="button">Delete</button></td>
+                    <td><input type="checkbox"></td>
                 </tr>
                 <tr>
-                    <td><a href=#>Edit</a></td>
                     <td>3</td>
                     <td>501</td>
                     <td>666</td>
                     <td>2023-12-05 20:50:00</td>
-                    <td><button type="button">Delete</button></td>
+                    <td><input type="checkbox"></td>
                 </tr>
                 <tr>
-                    <td><a href=#>Edit</a></td>
                     <td>4</td>
                     <td>501</td>
                     <td>915</td>
                     <td>2023-12-05 20:50:00</td>
-                    <td><button type="button">Delete</button></td>
+                    <td><input type="checkbox"></td>
                 </tr>
                 <tr>
-                    <td><a href=#>Edit</a></td>                    
                     <td>5</td>
                     <td>915</td>
                     <td>501</td>
                     <td>2023-12-05 20:50:00</td>
+                    <td><input type="checkbox"></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
                     <td><button type="button">Delete</button></td>
                 </tr>
         </table>
+
+        <form>
+            <fieldset>
+                <legend>Create Follower Relationship Between Existing Users:</legend>
+                <select>
+                    <option value="" selected="selected">Select followeeID:</option>
+                    <option value="66">66</option>
+                    <option value="91">91</option>
+                    <option value="501">501</option>
+                    <option value="666">666</option>
+                    <option value="915">915</option>
+                </select>
+
+                <br>
+
+                <select>
+                    <option value="" selected="selected">Select followerID:</option>
+                    <option value="66">66</option>
+                    <option value="91">91</option>
+                    <option value="501">501</option>
+                    <option value="666">666</option>
+                    <option value="915">915</option>
+                </select>
+
+                <br>
+
+                <button type="button" class="button">Set Follower</button>
+
+            </fieldset>
+        </form>
+
+        <form>
+            <fieldset>
+                <legend>Edit Follower Relationship Between Existing Users:</legend>
+
+                <br><label for="userRelationshipID">User Relationship ID:</label>
+                <select>
+                    <option value="" selected="selected">Select userRelationshipID:</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+                <br>
+
+                <label for="followeeID">Followee ID:</label>
+                <input type="text" id="dateLiked" name="dateLiked">
+
+                <br>
+
+                <label for="followerID">Follower ID:</label>
+                <select>
+                    <option value="" selected="selected">Select followerID:</option>
+                    <option value="66">66</option>
+                    <option value="91">91</option>
+                    <option value="501">501</option>
+                    <option value="666">666</option>
+                    <option value="915">915</option>
+                    <option value="">None</option>
+
+                </select>
+
+                <br><label for="followedSince">Followed Since:</label>
+                <input type="date" id="followedSince" name="followedSince">
+
+                <br>
+
+                <button type="button" class="button">Edit Follower</button>
+
+            </fieldset>
+        </form>
 
 
     </main>
     
     <footer>
         <p>
-            &copy; 2024 Marina Hampton & Zareeb Lorenzana
+            &copy; 2024 Marina Hampton &#38; Zareeb Lorenzana
         </p>
     </footer>
     

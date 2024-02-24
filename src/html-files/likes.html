@@ -31,7 +31,6 @@
         <table>
             <thead>
                 <tr>
-                    <th>Edit</th>
                     <th>likeID</th>
                     <th>postID</th>
                     <th>likedByUserID</th>
@@ -40,7 +39,6 @@
                 </tr>
             </thead>
                 <tr>
-                    <td><a href=#>Edit</a></td>
                     <td>1</td>
                     <td>1</td>
                     <td>91</td>
@@ -48,7 +46,6 @@
                     <td><input type="checkbox"></td>
                 </tr>
                 <tr>
-                    <td><a href=#>Edit</a></td>
                     <td>2</td>
                     <td>3</td>
                     <td>501</td>
@@ -56,7 +53,6 @@
                     <td><input type="checkbox"></td>
                 </tr>
                 <tr>
-                    <td><a href=#>Edit</a></td>
                     <td>3</td>
                     <td>3</td>
                     <td>66</td>
@@ -64,7 +60,6 @@
                     <td><input type="checkbox"></td>
                 </tr>
                 <tr>
-                    <td><a href=#>Edit</a></td>
                     <td>4</td>
                     <td>3</td>
                     <td>91</td>
@@ -72,7 +67,6 @@
                     <td><input type="checkbox"></td>
                 </tr>
                 <tr>
-                    <td><a href=#>Edit</a></td>
                     <td>5</td>
                     <td>3</td>
                     <td>666</td>
@@ -84,22 +78,81 @@
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td></td>
                     <td><button type="button">Delete</button></td>
                 </tr>       
         </table> 
+
         <br>
+
         <form>
             <fieldset>
-                <br><label for="postID"> postID:</label>
-                <input type="text" id="postID" size="10">
-                <br><label for="likedByUserID">likedByUserID:</label>
-                <input type="text" id="likedByUserID" name="likedByUserID" size="10">
+                <legend>Create Likes</legend>
+
+                <br><label for="postID">Post ID:</label>
+                <select>
+                    <option value="" selected="selected">Select postID:</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                </select>
+
+                <br><label for="likedByUserID">Liked By User ID:</label>
+                <select>
+                    <option value="" selected="selected">Select followerID:</option>
+                    <option value="66">66</option>
+                    <option value="91">91</option>
+                    <option value="501">501</option>
+                    <option value="666">666</option>
+                    <option value="915">915</option>
+                </select>
                 
 
-            <form action="/submit" method="POST">
-                <br><input type="submit" value="Submit">
-            </form>
+                <br>
+                
+                <input type="submit" value="Create Like" class="button">
+
+            </fieldset>
+        </form>
+
+        <br>
+
+        <form>
+            <fieldset>
+                <legend>Edit Likes</legend>
+
+                <label for="likeID">Like ID:</label>
+                <select>
+                    <option value="" selected="selected">Select likeID:</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+
+                <br><label for="postID">Post ID:</label>
+                <input type="text" id="postID">
+                
+                <br><label for="likedByUserID">Liked By User ID:</label>
+                <select>
+                    <option value="" selected="selected">Select userID:</option>
+                    <option value="1">66</option>
+                    <option value="2">91</option>
+                    <option value="3">501</option>
+                    <option value="4">666</option>
+                    <option value="5">915</option>
+                    <option value="">None</option>
+                </select>
+
+                <br><label for="dateLiked">Date Liked:</label>
+                <input type="date" id="dateLiked" name="dateLiked">
+
+                <br>
+                
+                <input type="submit" value="Edit Like" class="button">
 
             </fieldset>
         </form>
@@ -107,7 +160,7 @@
     
     <footer>
         <p>
-            &copy; 2024 Marina Hampton & Zareeb Lorenzana
+            &copy; 2024 Marina Hampton &#38; Zareeb Lorenzana
         </p>
     </footer>
     

@@ -7,6 +7,7 @@
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
     <script src='main.js'></script>
+    
 </head>
 <body>
     <header>
@@ -27,11 +28,10 @@
     </nav>
 
     <main>
-
+        <h3>Manage Posts</h3>
         <table>
             <thead>
                 <tr>
-                    <th>Edit</th>
                     <th>postID</th>
                     <th>userID</th>
                     <th>postDate</th>
@@ -40,89 +40,113 @@
                 </tr>
             </thead>
                 <tr>
-                    <td><a href=#>Edit</a></td>
                     <td>1</td>
                     <td>66</td>
                     <td>2023-12-05 20:50:00</td>
-                    <td><p>Hello, there!</p></td>
+                    <td>Hello, there!</td>
                     <td><button type="button">Delete</button></td>
                 </tr>
                 <tr>
-                    <td><a href=#>Edit</a></td>
                     <td>2</td>
                     <td>501</td>
                     <td>2023-12-05 20:50:00</td>
-                    <td><p>You're either with me or against me!</p></td>
+                    <td>You're either with me or against me!</td>
                     <td><button type="button">Delete</button></td>
                 </tr>
                 <tr>
-                    <td><a href=#>Edit</a></td>
                     <td>3</td>
                     <td>915</td>
                     <td>2023-12-05 20:50:00</td>
-                    <td><p>Traffic in Coruscant SUCKS!</p></td>
+                    <td>Traffic in Coruscant SUCKS!</td>
                     <td><button type="button">Delete</button></td>
                 </tr>
                 <tr>
-                    <td><a href=#>Edit</a></td>
                     <td>4</td>
                     <td>666</td>
                     <td>2023-12-05 20:50:00</td>
-                    <td><p>I am the Senate!</p></td>
+                    <td>I am the Senate!</td>
                     <td><button type="button">Delete</button></td>
                 </tr>
                 <tr>
-                    <td><a href=#>Edit</a></td>
                     <td>5</td>
                     <td>91</td>
                     <td>2023-12-05 20:50:00</td>
-                    <td><p>*cough cough*</p></td>
+                    <td>*cough cough*</td>
                     <td><button type="button">Delete</button></td>              
                 </tr>
                 <tr>
-                    <td><a href=#>Edit</a></td>
                     <td>6</td>
                     <td>91</td>
                     <td>2023-12-05 20:50:01</td>
-                    <td><p>I need an inhaler</p></td>
+                    <td>I need an inhaler</td>
                     <td><button type="button">Delete</button></td>
                 </tr>
         </table>
 
         <br>
+        <form method="/">
+            <fieldset>
+                <legend>Create Post</legend>            
 
-        <form action="/" method="POST">
-            <label for="userID">User ID:</label>
-                    <select name="userID" id="userID" required>
-                        <option value="66">66</option>
-                        <option value="91">91</option>
-                        <option value="501">501</option>
-                        <option value="666">666</option>
-                        <option value="915">915</option>
-                    </select>
+            <label for="userID">userID:</label>
+            <select>
+                <option value="" selected="selected">Select userID:</option>
+                <option value="66">66</option>
+                <option value="91">91</option>
+                <option value="501">501</option>
+                <option value="666">666</option>
+                <option value="915">915</option>
+            </select>
+
+            <br>
+            
+            <label for="postBody">postBody:</label>
+            <input type="text" id="postBody" name="postBody">
+            
+            <br>
+
+            <input type="submit" value="Create Post" class="button">
+            </fieldset>         
         </form>
 
-        <br>
-
-        <form action="/" method="POST">
-            <fieldset>
-                <label for="postBody"></label>
-                <textarea id="postBody"></textarea>
+        <form id="postForm">
+        <fieldset>
+            <legend>Edit Post</legend>
+            <select id="postSelection" onchange="autofillFormPosts()">
+                <option value="" selected="selected">Select Post ID:</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+            </select>
+                
+            <br>
+                
+            <label for="postID">postID:</label>
+            <input type="text" id="postID" name="postID"><br>
             
+            <label for="userID">userID:</label>
+            <input type="text" id="userID" name="userID"><br>
 
-            <form action="/submit" method="POST">
-                <br><input type="submit" value="Submit">
-            </form>
+            <label for="postDate">Date:</label>
+            <input type="text" id="postDate" name="postDate"><br>
+            
+            <label for="postBody">postBody:</label>
+            <input type="text" id="postBody" name="postBody">
+            
+            <br>  
 
+            <input type="submit" value="Edit Post" class="button">              
         </fieldset>
         </form>
-
     </main>
     
     <footer>
-        <p>
-            &copy; 2024 Marina Hampton & Zareeb Lorenzana
-        </p>
+        
+            &copy; 2024 Marina Hampton &#38; Zareeb Lorenzana
+        
     </footer>
     
 </body>

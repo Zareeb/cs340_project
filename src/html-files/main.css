@@ -1,13 +1,41 @@
+main {
+    width: 1000px;
+}
 table {
     border: solid;
+    width: fit-content;
+    max-width: inherit;
 }
 
 table tr td {
     text-align: center;
 }
 
+fieldset {
+    max-width: inherit;
+}
+
+legend {
+    font-size: larger;
+}
+
+select, input {
+    margin: 2px;
+    width: 200px;
+    display: block;
+}
+
+.button {
+    width: 100px;
+}
+
+.comment {
+    float: right;
+    border: solid 0.5px;
+    width: 300px;
+    height: 100px;
+}
+
 #postBody {
-    width: 100%;
-    max-width: 100%;
-    max-height: 200px;
+    width: 250px;
 }

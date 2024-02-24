@@ -27,10 +27,10 @@
     </nav>
 
     <main>
+        <h3>Manage Users</h3>
         <table>
             <thead>
                 <tr>
-                    <th>Edit</th>
                     <th>userID</th>
                     <th>username</th>
                     <th>firstName</th>
@@ -42,7 +42,6 @@
                 </tr>
             </thead>
                 <tr>
-                    <td><a href=#>Edit</a></td>
                     <td>66</td>
                     <td>anakinsucks</td>
                     <td>Obi-Wan</td>
@@ -53,7 +52,6 @@
                     <td><button type="button">Delete</button></td>
                 </tr>
                 <tr>
-                    <td><a href=#>Edit</a></td>
                     <td>501</td>
                     <td>ihatesand</td>
                     <td>Anakin</td>
@@ -64,7 +62,6 @@
                     <td><button type="button">Delete</button></td>
                 </tr>
                 <tr>
-                    <td><a href=#>Edit</a></td>
                     <td>915</td>
                     <td>naboorep</td>
                     <td>Padme</td>
@@ -75,7 +72,6 @@
                     <td><button type="button">Delete</button></td>
                 </tr>
                 <tr>
-                    <td><a href=#>Edit</a></td>
                     <td>666</td>
                     <td>totallynotasithlord</td>
                     <td>Sheev</td>
@@ -86,7 +82,6 @@
                     <td><button type="button">Delete</button></td>
                 </tr>
                 <tr>
-                    <td><a href=#>Edit</a></td>
                     <td>91</td>
                     <td>sabercollector</td>
                     <td>General</td>
@@ -100,6 +95,7 @@
         <br>
         <form>
             <fieldset>
+                <legend>Create User:</legend>
                 <label for="username"> Username:</label>
                 <input type="text" id="username" size="40">
                 <br><label for="firstName">First Name:</label>
@@ -110,13 +106,57 @@
                 <input type="text" id="email" name="email" size="40">
                 <br><label for="phoneNumber"> Phone Number:</label>
                 <input type="text" id="phoneNumber" name="phoneNumber" size="40">
-            
 
-            <form action="/submit" method="POST">
-                <br><input type="submit" value="Submit">
-            </form>
+                <br>
+            
+                <input type="submit" value="Create User" class="button">      
 
             </fieldset>
+        </form>
+        
+        <form id="userForm">
+        <fieldset>
+            <legend>Edit User</legend>
+
+            <aside class="comment">Proof of concept using JS to autofill fields and can be applied to other tables. Script is currently implemented only in Users and Posts tables. -Zar</aside>
+
+            <select id="userSelection" onchange="autofillFormUsers()">
+                <option value="" selected="selected">Select Username:</option>
+                <option value="anakinsucks">anakinsucks</option>
+                <option value="ihatesand">ihatesand</option>
+                <option value="naboorep">naboorep</option>
+                <option value="totallynotasithlord">totallynotasithlord</option>
+                <option value="sabercollector">sabercollector</option>
+                </select>
+                
+                <br>
+                
+            <label for="userID">User ID:</label>
+            <input type="text" id="userID" name="userID"><br>
+            
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username"><br>
+
+            <label for="firstName">First Name:</label>
+            <input type="text" id="firstName" name="firstName"><br>
+            
+            <label for="lastName">Last Name:</label>
+            <input type="text" id="lastName" name="lastName"><br>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email"><br>
+
+            <label for="phoneNumber">Phone Number:</label>
+            <input type="text" id="phoneNumber" name="phoneNumber"><br>
+
+            <label for="signupDate">Sign-up Date:</label>
+            <input type="text" id="signupDate" name="signupDate"><br>
+
+
+            <input type="submit" value="Edit User" class="button">
+            
+            
+        </fieldset>
         </form>
 
 
@@ -124,7 +164,7 @@
     
     <footer>
         <p>
-            &copy; 2024 Marina Hampton & Zareeb Lorenzana
+            &copy; 2024 Marina Hampton &#38; Zareeb Lorenzana
         </p>
     </footer>
     
