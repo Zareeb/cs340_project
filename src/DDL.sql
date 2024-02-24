@@ -61,8 +61,8 @@ CREATE TABLE Followers (
     followedSince DATE NOT NULL,
     FOREIGN KEY (followeeID) REFERENCES Users (userID) ON DELETE CASCADE,
     FOREIGN KEY (followerID) REFERENCES Users (userID) ON DELETE CASCADE,
-    PRIMARY KEY (userFollowerID),
-    UNIQUE (userFollowerID)
+    PRIMARY KEY (userRelationshipID),
+    UNIQUE (userRelationshipID)
 );
 
 
