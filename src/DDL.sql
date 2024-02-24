@@ -55,7 +55,7 @@ CREATE TABLE Tags (
 
 -- Followers: Allows users to follow other users 
 CREATE TABLE Followers (
-    userFollowerID INT(11) NOT NULL AUTO_INCREMENT,
+    userRelationshipID INT(11) NOT NULL AUTO_INCREMENT,
     followeeID INT(11) NOT NULL,
     followerID INT(11) NOT NULL,
     followedSince DATE NOT NULL,
