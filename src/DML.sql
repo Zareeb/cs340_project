@@ -2,6 +2,7 @@
 Team 181 - Marina Hampton and Zareeb Lorenzana - DML.sql 
 * = required
 ** = QoL 
+Date Updated: 02.23.2024
 Citation for the following SQL:
 Date: 2/14/2024
 Adapted from: 
