@@ -33,7 +33,7 @@ CREATE TABLE Posts (
     UNIQUE (postID)
 );
 
--- Interaction table PostHasTags between Posts and Tags;
+-- Interaction table PostsHasTags between Posts and Tags;
 CREATE TABLE PostsHasTags (
     postTagID INT(11) AUTO_INCREMENT NOT NULL,
     postID INT(11) NOT NULL,
