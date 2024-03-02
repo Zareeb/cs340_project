@@ -1,5 +1,6 @@
 """
 
+Authors: Marina Hampton & Zareeb Lorenzana
 Modified from OSU Flask starter app on GitHub
 Date: 02.29.2024
 Source URL: https://github.com/osu-cs340-ecampus/flask-starter-app

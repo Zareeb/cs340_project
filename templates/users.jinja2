@@ -20,7 +20,7 @@
                 {% if key == "userID" or key == "signupDate" or key == "phoneNumber"%}
                     <td class="centered-column">{{user[key]}}</td>
                 {% else %}
-                    <td contenteditable="false">{{user[key]}}</td>
+                    <td>{{user[key]}}</td>
                 {% endif %}
             {% endfor %}
             <td class="centered-column"><a href="users_edit/{{user.userID}}">Edit</a></td>
