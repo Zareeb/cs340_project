@@ -1,27 +1,9 @@
 main {
     width: 1000px;
 }
-table {
-    border: solid;
-    width: fit-content;
-    max-width: inherit;
-}
-
-table tr td {
-    text-align: center;
-}
-
-fieldset {
-    max-width: inherit;
-}
-
-legend {
-    font-size: larger;
-}
 
 select, input {
-    margin: 2px;
-    width: 200px;
+    width: 125px;
     display: block;
 }
 
@@ -38,4 +20,48 @@ select, input {
 
 #postBody {
     width: 250px;
+}
+
+table.minimalist {
+    border: 3px solid #000000;
+    width: 100%;
+    text-align: left;
+    border-collapse: collapse;
+  }
+table.minimalist td, table.minimalist th {
+    border: 1px solid #000000;
+    padding: 5px 4px;
+}
+table.minimalist tbody td {
+    font-size: 13px;
+}
+table.minimalist thead {
+    background: #CFCFCF;
+    background: -moz-linear-gradient(top, #dbdbdb 0%, #d3d3d3 66%, #CFCFCF 100%);
+    background: -webkit-linear-gradient(top, #dbdbdb 0%, #d3d3d3 66%, #CFCFCF 100%);
+    background: linear-gradient(to bottom, #dbdbdb 0%, #d3d3d3 66%, #CFCFCF 100%);
+    border-bottom: 3px solid #000000;
+}
+table.minimalist thead th {
+    font-size: 15px;
+    font-weight: bold;
+    color: #000000;
+    text-align: left;
+}
+table.minimalist tfoot {
+    font-size: 14px;
+    font-weight: bold;
+    color: #000000;
+    border-top: 3px solid #000000;
+}
+table.minimalist tfoot td {
+    font-size: 14px;
+}
+
+thead tr td {
+    font-weight: bold;
+}
+
+#addUserBtn {
+    width: 100% !important;
 }
