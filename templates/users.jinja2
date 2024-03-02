@@ -1,6 +1,7 @@
 {% extends "main.jinja2"%}
 
-{% block content%}
+{% block content %}
+    <h4>Manage Users:</h4>
     <form id="addUser" action="/users" method="POST">
     <table class="minimalist">
     <thead>
@@ -8,23 +9,28 @@
             {% for key in Users[0].keys() %}
                 <th>{{ key }}</th>
             {% endfor %}
-            <td>Edit</td>
-            <td>Delete</td>
+            <th>Edit</th>
+            <th>Delete</th>
         </tr>
     </thead>
     <tbody>
         {% for user in Users %}
         <tr>
             {% for key in user.keys() %}
-                <td>{{user[key]}}</td>
+                {% if key == "userID" or key == "signupDate" or key == "phoneNumber"%}
+                    <td class="centered-column">{{user[key]}}</td>
+                {% else %}
+                    <td contenteditable="false">{{user[key]}}</td>
+                {% endif %}
             {% endfor %}
-            <td><a href="#">Edit</a></td>
-            <td><a href="#">Delete</a></td>
+            <td class="centered-column"><a href="users_edit/{{user.userID}}">Edit</a></td>
+            <td class="centered-column"><a href="delete_users/{{user.userID}}">Delete</a></td>
         </tr>
 
         {% endfor %}
+    
         <tr>
-        <td></td>
+        <td class="centered-column">New</td>
         <td><input type="text" name="username" placeholder="Username"></td>
         <td><input type="text" name="firstName" placeholder="First Name"></td>
         <td><input type="text" name="lastName" placeholder="Last Name"></td>
@@ -33,9 +39,10 @@
         <td><input type="date" name="signupDate" value=""></td>
         <td colspan="2"><button id="addUserBtn" type="submit">Add User</button></td>
         </tr>
+
     </tbody>
     </table>
-    </form>    
+    </form>
+    
 
 {% endblock %}
-
