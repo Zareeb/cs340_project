@@ -16,7 +16,7 @@ SELECT * FROM Users;
 
 -- * INSERT: add a new User
 INSERT INTO Users (username, firstName, lastName, email, phoneNumber, signupDate)
-VALUES (:userName, ;firstName, :lastName, :email, :phoneNumber, :NOW());
+VALUES (:userName, :firstName, :lastName, :email, :phoneNumber, :NOW());
 
 
 -- ** get a single User's data for the Update User's form - edit button - will auto populate on form
