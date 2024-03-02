@@ -17,7 +17,7 @@ CREATE TABLE Users (
     lastName VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
     phoneNumber VARCHAR(15) NOT NULL,
-    signupDate DATETIME NOT NULL,
+    signupDate DATE NOT NULL,
     PRIMARY KEY (userID),
     UNIQUE (userID, username, email, phoneNumber)
 );
