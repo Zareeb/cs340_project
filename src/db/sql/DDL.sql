@@ -9,6 +9,7 @@ Date Updated: 02.23.2024
 SET FOREIGN_KEY_CHECKS=0;
 SET AUTOCOMMIT = 0;
 
+DROP TABLE IF EXISTS Users;
 -- records the details of users of the app
 CREATE TABLE Users (
     userID INT(11) AUTO_INCREMENT NOT NULL,
@@ -22,6 +23,7 @@ CREATE TABLE Users (
     UNIQUE (userID, username, email, phoneNumber)
 );
 
+DROP TABLE IF EXISTS Posts;
 -- records the details of a user’s posts
 CREATE TABLE Posts (
     postID INT(11) AUTO_INCREMENT NOT NULL,
@@ -33,6 +35,7 @@ CREATE TABLE Posts (
     UNIQUE (postID)
 );
 
+DROP TABLE IF EXISTS PostsHasTags;
 -- Interaction table PostsHasTags between Posts and Tags;
 CREATE TABLE PostsHasTags (
     postTagID INT(11) AUTO_INCREMENT NOT NULL,
@@ -45,6 +48,7 @@ CREATE TABLE PostsHasTags (
     UNIQUE (postTagID)
 );
 
+DROP TABLE IF EXISTS Tags;
 -- Tags : Allows users to create tags and organize their posts based on type of content
 CREATE TABLE Tags (
     tagID INT(11) NOT NULL AUTO_INCREMENT,
@@ -53,6 +57,7 @@ CREATE TABLE Tags (
     UNIQUE (tagID)
 );
 
+DROP TABLE IF EXISTS Followers;
 -- Followers: Allows users to follow other users 
 CREATE TABLE Followers (
     userRelationshipID INT(11) NOT NULL AUTO_INCREMENT,
@@ -65,8 +70,7 @@ CREATE TABLE Followers (
     UNIQUE (userRelationshipID)
 );
 
-
-
+DROP TABLE IF EXISTS PostsHasLikes;
 -- Interaction table PostsHasLikes ; Records a user’s interaction on other users’ posts; also acts as an intersection table between Users and Posts 
 CREATE TABLE PostsHasLikes (
     likeID INT(11) AUTO_INCREMENT NOT NULL,
