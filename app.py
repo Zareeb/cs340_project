@@ -29,10 +29,11 @@ mysql = MySQL(app)
 
 @app.route('/')
 def root():
-    return render_template("main.jinja2")
+    return render_template("main.jinja2", page_title = "Home")
 
 @app.route('/users', methods=["POST", "GET"])
 def users():
+    
 
     if request.method == "GET":
         query = "SELECT * FROM Users"
@@ -41,7 +42,7 @@ def users():
         cur.execute(query)
         data = cur.fetchall()
 
-        return render_template("users.jinja2", Users=data)
+        return render_template("users.jinja2", Users=data, page_title = "Users")
     
     elif request.method == "POST":
         username = request.form["username"]
@@ -86,6 +87,7 @@ def delete_users(userID: int):
 
 @app.route('/users_edit/<int:userID>', methods=["POST", "GET"])
 def users_edit(userID: int):
+
     if request.method == "GET":
         query = "SELECT * FROM Users WHERE userID = %s" % (userID)
         
@@ -95,9 +97,8 @@ def users_edit(userID: int):
 
         data = cur.fetchall()
 
-        return render_template("users_edit.jinja2", data=data)
-        # return json.dumps(data)
-        
+        return render_template("users_edit.jinja2", data=data, page_title = "Edit Users")
+
     if request.method == "POST":
         userID = request.form["userID"]
         username = request.form["username"]
@@ -128,23 +129,27 @@ def users_edit(userID: int):
     return redirect('/users')
 
 @app.route('/posts')
-def posts():
-    return render_template("posts.jinja2")
+def posts():    
+
+    return render_template("posts.jinja2", page_title="Posts")
 
 @app.route('/followers')
-def followers():
-    return render_template("followers.jinja2")
+def followers():    
+
+    return render_template("followers.jinja2", page_title="Followers")
 
 @app.route('/likes')
-def likes():
-    return render_template("likes.jinja2")
+def likes():    
+
+    return render_template("likes.jinja2", page_title="Likes")
 
 @app.route('/tags')
-def tags():
-    return render_template("tags.jinja2")
+def tags():    
+
+    return render_template("tags.jinja2", page_title="Tags")
 
 # Listener
 
 if __name__ == "__main__":
     
-    app.run(port=3792, debug=True)
+    app.run(port=3793, debug=True)
