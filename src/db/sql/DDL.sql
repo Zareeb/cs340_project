@@ -28,7 +28,7 @@ DROP TABLE IF EXISTS Posts;
 CREATE TABLE Posts (
     postID INT(11) AUTO_INCREMENT NOT NULL,
     userID INT(11) NOT NULL,
-    postDate DATETIME NOT NULL,
+    postDate DATE NOT NULL,
     postBody VARCHAR(255) NOT NULL,
     PRIMARY KEY (postID),
     FOREIGN KEY (userID) REFERENCES Users (userID) ON DELETE CASCADE,
@@ -116,7 +116,7 @@ INSERT INTO Posts (
 VALUES 
     (4,'2023-07-20 09:00:00','Graduated from Sherborne!' ),
     (4,'2023-08-20 19:00:00', 'My proof. Called Turing Proof.'),
-    (1,'2023-05-10 03:00:00','Gonna wear the one ring!'),
+    (1,'2023-05-10 03:00:00','Feeling risky, might wear the one ring!'),
     (2,'2024-01-10 05:40:00', 'I have a bad feeling about this'),
     (3,'2023-09-10 03:00:00', 'To define is to limit')
 ;
