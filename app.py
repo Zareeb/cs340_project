@@ -128,10 +128,39 @@ def users_edit(userID: int):
 
     return redirect('/users')
 
-@app.route('/posts')
-def posts():    
+@app.route('/posts', methods=["POST", "GET"])
+def posts():
+    if request.method == "GET":
+        query = "SELECT * FROM Posts"
 
-    return render_template("posts.jinja2", page_title="Posts")
+        cur = mysql.connection.cursor()
+        cur.execute(query)
+        data = cur.fetchall()
+
+        return render_template("posts.jinja2", Posts=data, page_title = "Posts")
+    
+    elif request.method == "POST":
+        userID = request.form["userID"]
+        postDate = request.form["postDate"]
+        postBody = request.form["postBody"]
+
+        query = """INSERT INTO Posts (
+                userID, 
+                postDate, 
+                postBody) 
+                VALUES (%s, %s, %s)
+                """
+
+        cur = mysql.connection.cursor()
+
+        values = (userID, postDate, postBody)
+
+        cur.execute(query, values)
+
+        mysql.connection.commit()
+    
+    return redirect("/posts")
+
 
 @app.route('/followers')
 def followers():    
