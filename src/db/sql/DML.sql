@@ -9,13 +9,13 @@ Adapted from:
 Source URL: https://canvas.oregonstate.edu/courses/1946034/pages/exploration-database-application-design?module_item_id=23809325
 */
 
--- DML operations for Users
+-- DML operations for users
 
---  * SELECT/SHOW all Users and relevant information for the Browse/list Users page
-SELECT * FROM Users;
+--  * SELECT/SHOW all users and relevant information for the Browse/list users page
+SELECT * FROM users;
 
 -- * INSERT: add a new User
-INSERT INTO Users (username, firstName, lastName, email, phoneNumber, signupDate)
+INSERT INTO users (username, firstName, lastName, email, phoneNumber, signupDate)
 VALUES (:userName, :firstName, :lastName, :email, :phoneNumber, :NOW());
 
 
@@ -28,55 +28,55 @@ SELECT
     email,
     phoneNumber,
     signupDate
-FROM Users 
+FROM users 
 WHERE userID = :userID_selected_from_browse_Users_page;
 
--- get all Users and their userID, firstName, lastName to populate a dropdown to show Users who have a Post 
--- SELECT DISTINCT Users.userID, Users.firstName, Users.lastName
+-- get all users and their userID, firstName, lastName to populate a dropdown to show users who have a Post 
+-- SELECT DISTINCT users.userID, users.firstName, users.lastName
 -- FROM
---     Users
+--     users
 -- JOIN
---     Posts ON Users.userID = Posts.userID;
+--     posts ON users.userID = posts.userID;
 
 -- update a User's data based on submission of the Update User form 
-UPDATE Users SET firstName = :fnameInput, lastName= :lnameInput, email = :emailInput 
+UPDATE users SET firstName = :fnameInput, lastName= :lnameInput, email = :emailInput 
 WHERE userID= :userID_from_the_update_form; 
 
 -- * delete a User
-DELETE FROM Users WHERE userID = :userID_selected_from_browse_User_page;
+DELETE FROM users WHERE userID = :userID_selected_from_browse_User_page;
 
 
 
--- DML operations for Followers
+-- DML operations for followers
 -- ----------------------------------------------
 
 -- * INSERT a follower
-INSERT INTO Followers (followeeID, followerID, followedSince)
+INSERT INTO followers (followeeID, followerID, followedSince)
 VALUES (:followeeUserID, :followerUserID, NOW());
 
--- * SELECT/DISPLAY all Followers info
+-- * SELECT/DISPLAY all followers info
 SELECT * FROM Follwers; 
 
--- ** Get all Users and their Followers with their IDs and names to populate the User and their Followers dropdown.
-SELECT Users.userID, Users.firstName, Users.lastName, Followers.followerID
+-- ** Get all users and their followers with their IDs and names to populate the User and their followers dropdown.
+SELECT users.userID, users.firstName, users.lastName, followers.followerID
 FROM
-    Users
+    users
 LEFT JOIN
-    Followers ON Users.userID = Followers.followeeID;
+    followers ON users.userID = followers.followeeID;
 
 
 
--- DML operations for Posts
+-- DML operations for posts
 -- ----------------------------------------------
 
--- SELECT/DISPLAY all Posts and data
-SELECT * FROM Posts;
+-- SELECT/DISPLAY all posts and data
+SELECT * FROM posts;
 
 -- * INSERT a Post
-INSERT INTO Posts (userID, postDate, postBody)
+INSERT INTO posts (userID, postDate, postBody)
 VALUES (:userID, NOW(), :postBody);
 
--- ** show all Posts data as well Likes and Tags for list all Posts page 
+-- ** show all posts data as well Likes and tags for list all posts page 
 SELECT
     P.postID,
     P.userID,
@@ -85,39 +85,39 @@ SELECT
     GROUP_CONCAT(DISTINCT T.tag) AS tags,
     GROUP_CONCAT(DISTINCT PL.likedByUserID) AS likedByUserID
 FROM
-    Posts P
+    posts P
 LEFT JOIN
-    PostsHasTags PT ON P.postID = PT.postID
+    postsHasTags PT ON P.postID = PT.postID
 LEFT JOIN
-    Tags T ON PT.tagID = T.tagID
+    tags T ON PT.tagID = T.tagID
 LEFT JOIN
-    PostsHasLikes PL ON P.postID = PL.postID
+    postsHasLikes PL ON P.postID = PL.postID
 GROUP BY
     P.postID;
 
---  ** get all Posts from a select User
-SELECT Posts.postID, Posts.postDate, Posts.postBody
-FROM Posts
+--  ** get all posts from a select User
+SELECT posts.postID, posts.postDate, posts.postBody
+FROM posts
 INNER JOIN
-    Users ON Posts.userID = Users.userID
+    users ON posts.userID = users.userID
 WHERE
-    Users.userID = :userID_selected_from_browse_User_page;
+    users.userID = :userID_selected_from_browse_User_page;
 
 -- delete a Post 
-DELETE FROM Posts WHERE postID = :postID_selected_from_all_Posts_from_a_select_User;
+DELETE FROM posts WHERE postID = :postID_selected_from_all_Posts_from_a_select_User;
 
--- DML operations for PostsHasLikes (interaction table)
+-- DML operations for postsHasLikes (interaction table)
 -- ----------------------------------------------
 
--- * SELECT/DISPLAY all PostsHasLikes
-SELECT * FROM PostsHasLikes;
+-- * SELECT/DISPLAY all postsHasLikes
+SELECT * FROM postsHasLikes;
 
--- * INSERT new data for PostsHasLikes
-INSERT INTO PostsHasLikes (postID, likedByUserID, dateLiked)
+-- * INSERT new data for postsHasLikes
+INSERT INTO postsHasLikes (postID, likedByUserID, dateLiked)
 VALUES (:postID, :likedByUserID, NOW());
 
--- * UPDATE PostsHasLikes table to set likedByUserID to NULL when User is deleted
-UPDATE PostsHasLikes
+-- * UPDATE postsHasLikes table to set likedByUserID to NULL when User is deleted
+UPDATE postsHasLikes
 SET likedByUserID = NULL
 WHERE likedByUserID = :userID_to_delete;
 
@@ -131,48 +131,48 @@ SELECT
     WHERE postID = :postID_selected_from_all_Posts_page) AS liked_user_ids;
 
 
--- DML operations for Tags
+-- DML operations for tags
 -- ----------------------------------------------
 
--- * SELECT/DISPLAY all data for Tags table
-SELECT * FROM Tags;
+-- * SELECT/DISPLAY all data for tags table
+SELECT * FROM tags;
 
 -- * INSERT a new Tag
-INSERT INTO Tags (tag)
+INSERT INTO tags (tag)
 VALUES (:tag);
 
- -- ** get Tags from a selected Post - do we move it? 
+ -- ** get tags from a selected Post - do we move it? 
 SELECT P.*
-FROM Posts P
-JOIN PostsHasTags PT ON P.postID = PT.postID
-JOIN Tags T ON PT.tagID = T.tagID
+FROM posts P
+JOIN postsHasTags PT ON P.postID = PT.postID
+JOIN tags T ON PT.tagID = T.tagID
 WHERE T.tagID = :tagID_selected_from_all_Tags_page;
 
 -- ** get all tags a selected User has ever used
 SELECT DISTINCT
     T.tag
 FROM
-    Users U
+    users U
 JOIN
-    Posts P ON U.userID = P.userID
+    posts P ON U.userID = P.userID
 JOIN
-    PostsHasTags PT ON P.postID = PT.postID
+    postsHasTags PT ON P.postID = PT.postID
 JOIN
-    Tags T ON PT.tagID = T.tagID
+    tags T ON PT.tagID = T.tagID
 WHERE
     U.userID = :userID_selected_from_all_Users_page; 
 
--- DML operations for PostsHasTags
+-- DML operations for postsHasTags
 -- ---------------------------------------------
 
--- * SELECT/DISPLAY show all data for PostsHasTags
+-- * SELECT/DISPLAY show all data for postsHasTags
 SELECT *
-FROM PostsHasTags;
+FROM postsHasTags;
 
 -- * INSERT a new relationship between a Post and a Tag
-INSERT INTO PostsHasTags (postID, tagID, dateTagged)
+INSERT INTO postsHasTags (postID, tagID, dateTagged)
 VALUES (:postID, :tagID, NOW());
 
 -- DELETE a relationship between a Post and Tag
-DELETE FROM PostsHasTags
+DELETE FROM postsHasTags
 WHERE postID = :postID_to_delete AND tagID = :tagID_to_delete;
