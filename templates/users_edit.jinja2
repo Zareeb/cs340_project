@@ -1,43 +1,79 @@
 {% extends "main.jinja2"%}
-
 {% block content %}
-<h4>Edit Users:</h4>
-    <form id="editUser" action="/users_edit/{{ data[0].userID }}" method="POST">
+
+<h4>Edit User:</h4>
+    <form id="editUser" action="/users/users_edit/{{users[0].userID}}" method="POST">
     <table class="minimalist">
     <thead>
         <tr>
-            {% for key in data[0].keys() %}
-                <th>{{ key }}</th>
+            {% for key in users[0].keys() %}
+
+                <th>{{key}}</th>
+
             {% endfor %}
-            <th>Edit</th>
         </tr>
     </thead>
     <tbody>
-        {% for user in data %}
+        {% for user in users %}
+
         <tr>
-            {% for key in user.keys() %}
-                {% if key == "userID" or key == "signupDate" or key == "phoneNumber"%}
-                    <td class="centered-column">{{user[key]}}</td>
+        
+            {% for key, val in user.items() %}
+                {% if key in ["userID", "signupDate"]%}
+
+                    <td class="centered-column">
+                        <input type="hidden" 
+                               name="{{key}}" 
+                               value="{{val}}"
+                               />
+                        {{val}}
+                    </td>
+                
+                {% elif key == "phoneNumber"%}
+
+                    <td class="centered-column">
+                        <input type="tel" 
+                               name="{{key}}" 
+                               value="{{val}}" 
+                               placeholder="Must be at least 6 digits" 
+                               required pattern="[0-9]{6,}"
+                               />
+                    </td>
+
+                {% elif key in ["firstName", "lastName"] %}
+
+                    <td>
+                        <input type="text" 
+                               name="{{key}}" 
+                               value="{{val}}" 
+                               required pattern="[A-Za-z\s\-]+" 
+                               />
+                    </td>
+        
                 {% else %}
-                    <td contenteditable="false">{{user[key]}}</td>
+
+                    <td>
+                        <input type="text" 
+                               name="{{key}}" 
+                               value="{{val}}" 
+                               required 
+                               autofocus
+                               />
+                    </td>
+
                 {% endif %}
             {% endfor %}
-            <td></td>
+
+            <td>
+                <button id="addNewBtn" class="button-like-link" type="submit">Confirm Edit</button>
+            </td>
+            <td>
+                <a href="/users" class="button-link">Cancel</a>
+            </td>
         </tr>
 
         {% endfor %}
         
-        <tr>
-        <td><input type="hidden" name="userID" value="{{ data[0].userID }}"></td>
-        <td><input type="text" name="username" value="{{ data[0].username }}"></td>
-        <td><input type="text" name="firstName" value="{{ data[0].firstName }}"></td>
-        <td><input type="text" name="lastName" value="{{ data[0].lastName }}"></td>
-        <td><input type="email" name="email" value="{{ data[0].email }}"></td>
-        <td><input type="text" name="phoneNumber" value="{{ data[0].phoneNumber }}"></td>
-        <td><input type="date" name="signupDate" value=""></td>
-        <td><button id="editUserBtn" type="submit">Edit User</button></td>
-        </tr>
-
     </tbody>
     </table>
     </form>

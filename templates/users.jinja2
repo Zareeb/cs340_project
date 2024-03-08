@@ -1,48 +1,98 @@
 {% extends "main.jinja2"%}
-{% block title %}Users{% endblock %}
 {% block content %}
+
     <h4>Manage Users:</h4>
-    <form id="addUser" action="/users" method="POST">
+    
     <table class="minimalist">
     <thead>
         <tr>
-            {% for key in Users[0].keys() %}
+            {% for key in users[0].keys() %}
+
                 <th>{{ key }}</th>
+
             {% endfor %}
-            <th>Edit</th>
-            <th>Delete</th>
         </tr>
     </thead>
     <tbody>
-        {% for user in Users %}
+        {% for user in users %}
         <tr>
             {% for key in user.keys() %}
                 {% if key == "userID" or key == "signupDate" or key == "phoneNumber"%}
+
                     <td class="centered-column">{{user[key]}}</td>
+
                 {% else %}
+
                     <td>{{user[key]}}</td>
+
                 {% endif %}
             {% endfor %}
-            <td class="centered-column"><a href="users_edit/{{user.userID}}">Edit</a></td>
-            <td class="centered-column"><a href="delete_users/{{user.userID}}">Delete</a></td>
+            
+            <td class="centered-column">
+                <a href="users_edit/{{user.userID}}">Edit</a>
+            </td>
+            <td class="centered-column">
+                <a href="users_delete/{{user.userID}}">Delete</a>
+            </td>
         </tr>
-
+        
         {% endfor %}
-    
+
+    <form id="addUser" action="/users" method="POST">
         <tr>
         <td class="centered-column">New</td>
-        <td><input type="text" name="username" placeholder="Username"></td>
-        <td><input type="text" name="firstName" placeholder="First Name"></td>
-        <td><input type="text" name="lastName" placeholder="Last Name"></td>
-        <td><input type="email" name="email" placeholder="Email"></td>
-        <td><input type="text" name="phoneNumber" placeholder="Phone Number"></td>
-        <td><input type="date" name="signupDate" value=""></td>
-        <td colspan="2"><button id="addUserBtn" type="submit">Add User</button></td>
+        <td>
+            <input type="text" 
+                   name="username" 
+                   placeholder="Username" 
+                   required 
+                   autofocus
+                   />
+        </td>
+        <td>
+            <input type="text" 
+                   name="firstName" 
+                   placeholder="First Name" 
+                   required pattern="[A-Za-z\s\-]+" 
+                   autocapitalize="words"
+                   />
+        </td>
+        <td>
+            <input type="text" 
+                   name="lastName" 
+                   placeholder="Last Name" 
+                   required pattern="[A-Za-z\s\-]+" 
+                   autocapitalize="words"
+                   />
+        </td>
+        <td>
+            <input type="email" 
+                   name="email" 
+                   placeholder="Email" 
+                   required
+                   />
+        </td>
+        <td>
+            <input type="tel" 
+                   name="phoneNumber" 
+                   placeholder="Must be at least 6 digits" 
+                   required pattern="[0-9]{6,}"
+                   />
+        </td>
+        <td>
+            <input type="date" 
+                   name="signupDate" 
+                   value="" 
+                   required
+                   />
+        </td>
+        <td colspan="2">
+            <button id="addNewBtn" class="button-like-link" type="submit">Add User</button>
+        </td>
         </tr>
+    </form>
 
     </tbody>
     </table>
-    </form>
     
-
 {% endblock %}
