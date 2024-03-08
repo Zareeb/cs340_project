@@ -1,117 +1,74 @@
 {% extends "main.jinja2"%}
-
 {% block content %}
+
 <h4>Manage Posts</h4>
-<table class="minimalist">
+    
+    <table class="minimalist">
     <thead>
         <tr>
-            <th>postID</th>
-            <th>userID</th>
-            <th>postDate</th>
-            <th>postBody</th>
-            <th>Delete</th>
+            {% for key in posts[0].keys() %}
+
+                <th>{{key}}</th>
+
+            {% endfor %}
         </tr>
     </thead>
-        <tr>
-            <td>1</td>
-            <td>66</td>
-            <td>2023-12-05 20:50:00</td>
-            <td>Hello, there!</td>
-            <td><button type="button">Delete</button></td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>501</td>
-            <td>2023-12-05 20:50:00</td>
-            <td>You're either with me or against me!</td>
-            <td><button type="button">Delete</button></td>
-        </tr>
-        <tr>
-            <td>3</td>
-            <td>915</td>
-            <td>2023-12-05 20:50:00</td>
-            <td>Traffic in Coruscant SUCKS!</td>
-            <td><button type="button">Delete</button></td>
-        </tr>
-        <tr>
-            <td>4</td>
-            <td>666</td>
-            <td>2023-12-05 20:50:00</td>
-            <td>I am the Senate!</td>
-            <td><button type="button">Delete</button></td>
-        </tr>
-        <tr>
-            <td>5</td>
-            <td>91</td>
-            <td>2023-12-05 20:50:00</td>
-            <td>*cough cough*</td>
-            <td><button type="button">Delete</button></td>              
-        </tr>
-        <tr>
-            <td>6</td>
-            <td>91</td>
-            <td>2023-12-05 20:50:01</td>
-            <td>I need an inhaler</td>
-            <td><button type="button">Delete</button></td>
-        </tr>
-</table>
+    <tbody>
+        {% for post in posts %}
 
-<br>
-<form method="/">
-    <fieldset>
-        <legend>Create Post</legend>            
+        <tr>
 
-    <label for="userID">userID:</label>
-    <select>
-        <option value="" selected="selected">Select userID:</option>
-        <option value="66">66</option>
-        <option value="91">91</option>
-        <option value="501">501</option>
-        <option value="666">666</option>
-        <option value="915">915</option>
-    </select>
+            {% for key in post.keys() %}
+                {% if key == "postBody"%}
 
-    <br>
-    
-    <label for="postBody">postBody:</label>
-    <input type="text" id="postBody" name="postBody">
-    
-    <br>
+                    <td>{{post[key]}}</td>
 
-    <input type="submit" value="Create Post" class="button">
-    </fieldset>         
-</form>
+                {% else %}
 
-<form id="postForm">
-<fieldset>
-    <legend>Edit Post</legend>
-    <select id="postSelection" onchange="autofillFormPosts()">
-        <option value="" selected="selected">Select Post ID:</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-    </select>
+                    <td class="centered-column">{{post[key]}}</td>
+
+                {% endif %}
+            {% endfor %}
+
+            <td class="centered-column"><a href="posts_edit/{{post.postID}}">Edit</a></td>
+            <td class="centered-column"><a href="posts_delete/{{post.postID}}">Delete</a></td>
+        </tr>
+
+        {% endfor %}
         
-    <br>
-        
-    <label for="postID">postID:</label>
-    <input type="text" id="postID" name="postID"><br>
-    
-    <label for="userID">userID:</label>
-    <input type="text" id="userID" name="userID"><br>
+    <form id="addPosts" action="/posts" method="POST">
+        <tr>
+        <td class="centered-column">New</td>
+        <td>
+            <select name="userID" required autofocus>
+                <option value="" selected>Select User</option>
+                
+                {% for dict in userdata %}
 
-    <label for="postDate">Date:</label>
-    <input type="text" id="postDate" name="postDate"><br>
-    
-    <label for="postBody">postBody:</label>
-    <input type="text" id="postBody" name="postBody">
-    
-    <br>  
+                    <option value="{{dict['userID']}}">{{dict['userID-username']}}</option>
 
-    <input type="submit" value="Edit Post" class="button">              
-</fieldset>
-</form>
+                {% endfor %}
+
+            </select>
+
+        </td>
+        <td>
+            <input type="date" 
+                   name="postDate" 
+                   placeholder="" 
+                   required
+                   />
+        </td>
+        <td>
+            <textarea class="text-input-table" type="text" name="postBody" placeholder="Type here"></textarea>
+        </td>
+        <td colspan="2">
+            <button id="addNewBtn" class="button-like-link" type="submit">Create Post</button>
+        </td>
+        </tr>
+    </form>
+
+    </tbody>
+    </table>
+
 {% endblock %}

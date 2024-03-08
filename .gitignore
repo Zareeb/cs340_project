@@ -2,3 +2,4 @@ __pycache__/
 backups/
 drafts/
 venv/
+credentials.py

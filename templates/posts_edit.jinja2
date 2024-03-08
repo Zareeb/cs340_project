@@ -1,0 +1,62 @@
+{% extends "main.jinja2"%}
+{% block content %}
+
+<h4>Edit Post:</h4>
+    <form id="editPost" action="/posts/posts_edit/{{posts[0].postID}}" method="POST">
+    <table class="minimalist">
+    <thead>
+        <tr>
+            {% for key in posts[0].keys() %}
+                {% if key != "userID"%}
+
+                    <th>{{key}}</th>
+
+                {%endif%}
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for post in posts %}
+
+        <tr>
+
+            {% for key, val in post.items() %}
+                {% if key == "userID"%}
+
+                    <input type="hidden" name="{{key}}" value="{{val}}">
+
+                {% elif key == "postBody"%}
+
+                    <td>
+                        <textarea class="text-input-table" type="text" name="postBody" placeholder="" autofocus>{{val}}</textarea>
+                    </td>
+
+                {% elif key == "userID-username" %}
+
+                    <td class="centered-column">{{val}}</td>
+
+                {% else %}
+
+                    <td class="centered-column">
+                    <input type="hidden" name="{{key}}" value="{{val}}">
+                    {{val}}
+                    </td>
+
+                {% endif %}
+            {% endfor %}
+
+            <td>
+                <button id="addNewBtn" class="button-like-link" type="submit">Confirm Edit</button>
+                </td>
+            <td>
+                <a href="/posts" class="button-link">Cancel</a>
+                </td>
+        </tr>
+
+        {% endfor %}
+
+    </tbody>
+    </table>
+    </form>
+
+{% endblock %}
