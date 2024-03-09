@@ -1,8 +1,8 @@
 """
 
-Authors: Marina Hampton, Zareeb Lorenzana, & Skyler Santos
+Authors: Marina Hampton, Zareeb Lorenzana, Skyler Santos
 Modified from OSU Flask starter app on GitHub
-Date: 03.07.2024
+Date: 03.08.2024
 Source URL: https://github.com/osu-cs340-ecampus/flask-starter-app
 
 """
@@ -38,4 +38,4 @@ def root():
 
 if __name__ == "__main__":
     
-    app.run(port=3792, debug=True)
+    app.run(port=3793, debug=True)
