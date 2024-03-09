@@ -1,6 +1,5 @@
 /*
-Team 181
-Marina Hampton and Zareeb Lorenzana 
+Team 181 - Marina Hampton, Zareeb Lorenzana, & Skyler Santos
 DDL.SQL - hand authored
 Database of Simple Social App
 Date Updated: 03.07.2024
@@ -70,9 +69,9 @@ CREATE TABLE followers (
     UNIQUE (userRelationshipID)
 );
 
-DROP TABLE IF EXISTS postsHasLikes;
--- Interaction table postsHasLikes ; Records a user’s interaction on other users’ posts; also acts as an intersection table between users and Posts 
-CREATE TABLE postsHasLikes (
+DROP TABLE IF EXISTS likes;
+-- Records a user’s interaction on other users’ posts; also acts as an intersection table between users and Posts 
+CREATE TABLE likes (
     likeID INT(11) AUTO_INCREMENT NOT NULL,
     postID INT(11) NOT NULL,
     likedByUserID INT(11),
@@ -135,8 +134,8 @@ VALUES
     (1,3,'2023-05-09')
 ;
 
--- insert data into postsHasLikes table
-INSERT INTO postsHasLikes (
+-- insert data into likes table
+INSERT INTO likes (
     postID,
     likedByUserID,
     dateLiked
@@ -180,14 +179,14 @@ select * from posts;
 select * from tags;
 select * from followers;
 select * from postsHasTags;
-select * from postsHasLikes;
+select * from likes;
 
 describe users;
 describe posts;
 describe tags;
 describe followers;
 describe postsHasTags;
-describe postsHasLikes;
+describe likes;
 
 
 SET FOREIGN_KEY_CHECKS=1;

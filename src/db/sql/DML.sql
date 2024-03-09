@@ -1,5 +1,5 @@
 /*
-Team 181 - Marina Hampton and Zareeb Lorenzana - DML.sql 
+Team 181 - Marina Hampton, Zareeb Lorenzana, & Skyler Santos
 * = required
 ** = QoL 
 Date Updated: 02.23.2024
@@ -91,7 +91,7 @@ LEFT JOIN
 LEFT JOIN
     tags T ON PT.tagID = T.tagID
 LEFT JOIN
-    postsHasLikes PL ON P.postID = PL.postID
+    likes PL ON P.postID = PL.postID
 GROUP BY
     P.postID;
 
@@ -106,18 +106,18 @@ WHERE
 -- delete a Post 
 DELETE FROM posts WHERE postID = :postID_selected_from_all_Posts_from_a_select_User;
 
--- DML operations for postsHasLikes (interaction table)
+-- DML operations for likes
 -- ----------------------------------------------
 
--- * SELECT/DISPLAY all postsHasLikes
-SELECT * FROM postsHasLikes;
+-- * SELECT/DISPLAY all likes
+SELECT * FROM likes;
 
--- * INSERT new data for postsHasLikes
-INSERT INTO postsHasLikes (postID, likedByUserID, dateLiked)
+-- * INSERT new data for likes
+INSERT INTO likes (postID, likedByUserID, dateLiked)
 VALUES (:postID, :likedByUserID, NOW());
 
--- * UPDATE postsHasLikes table to set likedByUserID to NULL when User is deleted
-UPDATE postsHasLikes
+-- * UPDATE likes table to set likedByUserID to NULL when user is deleted
+UPDATE likes
 SET likedByUserID = NULL
 WHERE likedByUserID = :userID_to_delete;
 
