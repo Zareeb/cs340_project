@@ -1,130 +1,88 @@
 {% extends "main.jinja2"%}
-
 {% block content %}
+
 <h4>Manage Followers</h4>
-<table class="minimalist">
+    
+    <table class="minimalist">
     <thead>
         <tr>
-            <th>userRelationshipID</th>
-            <th>followeeID</th>
-            <th>followerID</th>
-            <th>followedSince</th>
-            <th>Delete</th>
+
+            {% for key in followers[0].keys() %}
+
+                <th>{{key}}</th>
+
+            {% endfor %}
+            
         </tr>
     </thead>
+    <tbody>
+        {% for follower in followers %}
+
         <tr>
-            <td>1</td>
-            <td>66</td>
-            <td>91</td>
-            <td>2023-12-05 20:50:00</td>
-            <td><input type="checkbox"></td>
+
+            {% for key in follower.keys() %}
+                {%if key not in ["followeeUsername", "followerUsername"]%}
+
+                    <td class="centered-column">{{follower[key]}}</td>
+                
+                {%else%}
+
+                    <td>{{follower[key]}}</td>
+
+                {%endif%}
+            {% endfor %}
+
+            <td class="centered-column"><a href="followers_delete/{{follower.userRelationshipID}}">Delete</a></td>
         </tr>
+
+        {% endfor %}
+        
+    <form id="addFollowers" action="/followers" method="POST">
         <tr>
-            <td>2</td>
-            <td>66</td>
-            <td>501</td>
-            <td>2023-12-05 20:50:00</td>
-            <td><input type="checkbox"></td>
+        <td class="centered-column">New</td>
+        <td>
+            <select name="followeeID" required autofocus>
+                <option value="" selected>Select User</option>
+                
+                {% for dictionary in userdata %}
+        
+                    <option value="{{dictionary['userID']}}">{{dictionary['username']}}</option>
+        
+                {% endfor %}
+        
+            </select>
+        </td>
+        <td colspan="2" style="background-color: #000;"></td>
+        <td>
+            <select name="followerID" required autofocus>
+                <option value="" selected>Select Follower</option>
+            
+                {% for dictionary in userdata %}
+                {%if dictionary['userID']%}
+            
+                    <option value="{{dictionary['userID']}}">{{dictionary['username']}}</option>
+
+                {%endif%}
+                {% endfor %}
+            
+            </select>
+        </td>
+        <td>
+            <input type="date" 
+                   name="followedSince" 
+                   placeholder="" 
+                   required 
+                   />
+        </td>
+
+        <td colspan="2">
+            <button id="addNewBtn" class="button-like-link" type="submit">New Relationship</button>
+        </td>
         </tr>
-        <tr>
-            <td>3</td>
-            <td>501</td>
-            <td>666</td>
-            <td>2023-12-05 20:50:00</td>
-            <td><input type="checkbox"></td>
-        </tr>
-        <tr>
-            <td>4</td>
-            <td>501</td>
-            <td>915</td>
-            <td>2023-12-05 20:50:00</td>
-            <td><input type="checkbox"></td>
-        </tr>
-        <tr>
-            <td>5</td>
-            <td>915</td>
-            <td>501</td>
-            <td>2023-12-05 20:50:00</td>
-            <td><input type="checkbox"></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td><button type="button">Delete</button></td>
-        </tr>
-</table>
 
-<form>
-    <fieldset>
-        <legend>Create Follower Relationship Between Existing Users:</legend>
-        <select>
-            <option value="" selected="selected">Select followeeID:</option>
-            <option value="66">66</option>
-            <option value="91">91</option>
-            <option value="501">501</option>
-            <option value="666">666</option>
-            <option value="915">915</option>
-        </select>
+    </form>
 
-        <br>
+    </tbody>
+    </table>
 
-        <select>
-            <option value="" selected="selected">Select followerID:</option>
-            <option value="66">66</option>
-            <option value="91">91</option>
-            <option value="501">501</option>
-            <option value="666">666</option>
-            <option value="915">915</option>
-        </select>
-
-        <br>
-
-        <button type="button" class="button">Set Follower</button>
-
-    </fieldset>
-</form>
-
-<form>
-    <fieldset>
-        <legend>Edit Follower Relationship Between Existing Users:</legend>
-
-        <br><label for="userRelationshipID">User Relationship ID:</label>
-        <select>
-            <option value="" selected="selected">Select userRelationshipID:</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-        </select>
-        <br>
-
-        <label for="followeeID">Followee ID:</label>
-        <input type="text" id="dateLiked" name="dateLiked">
-
-        <br>
-
-        <label for="followerID">Follower ID:</label>
-        <select>
-            <option value="" selected="selected">Select followerID:</option>
-            <option value="66">66</option>
-            <option value="91">91</option>
-            <option value="501">501</option>
-            <option value="666">666</option>
-            <option value="915">915</option>
-            <option value="">None</option>
-
-        </select>
-
-        <br><label for="followedSince">Followed Since:</label>
-        <input type="date" id="followedSince" name="followedSince">
-
-        <br>
-
-        <button type="button" class="button">Edit Follower</button>
-
-    </fieldset>
-</form>
 {% endblock %}
