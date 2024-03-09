@@ -46,6 +46,10 @@ def users():
 # Deletes user from database
 @users_page.route('/users_delete/<int:userID>')
 def users_delete(userID: int):
+    query = "DELETE FROM users WHERE userID = %s"
+    cur = mysql.connection.cursor()
+    cur.execute(query, (userID,))
+    mysql.connection.commit()
 
     return redirect('/users')
 
