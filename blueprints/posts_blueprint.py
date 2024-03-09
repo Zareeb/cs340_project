@@ -6,7 +6,7 @@ mysql = MySQL()
 
 posts_page = Blueprint('posts', __name__, url_prefix='/posts')
 
-# Read's database, allows creation of new post(s)
+# Reads database, allows creation of new post(s)
 @posts_page.route('/', methods=["POST", "GET"])
 def posts():   
 
@@ -54,6 +54,7 @@ def posts():
     
     return redirect("/posts")
 
+# Deletes a user's post
 @posts_page.route('/posts_delete/<int:postID>')
 def posts_delete(postID: int):
 
@@ -63,6 +64,7 @@ def posts_delete(postID: int):
     mysql.connection.commit()
     return redirect('/posts')
 
+# Edits a user's post
 @posts_page.route('posts_edit/<int:postID>', methods=["POST", "GET"])
 def posts_edit(postID: int):
     
@@ -76,15 +78,9 @@ def posts_edit(postID: int):
                 JOIN users u ON p.userID = u.userID
                 WHERE postID = %s
                 """ % (postID)
-        # query = "SELECT * FROM posts WHERE postID = %s" % (postID)
         cur = mysql.connection.cursor()
         cur.execute(query1)
         data = cur.fetchall()
-
-        # query2 = "SELECT userID, CONCAT(userID, '-', username) AS 'userID-username' FROM users WHERE userID = %s" % (userID)
-        # cur = mysql.connection.cursor()
-        # cur.execute(query2)
-        # userdata = cur.fetchall()
 
         return render_template("posts_edit.jinja2", posts=data, page_title = "Edit posts")
 
@@ -102,11 +98,8 @@ def posts_edit(postID: int):
                 """
         
         cur = mysql.connection.cursor()
-
         values = (userID, postDate, postBody, postID)
-
         cur.execute(query, values)
-
         mysql.connection.commit()
 
         return redirect('/posts')
