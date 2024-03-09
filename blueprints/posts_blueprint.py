@@ -58,6 +58,11 @@ def posts():
 @posts_page.route('/posts_delete/<int:postID>')
 def posts_delete(postID: int):
 
+    query = "DELETE FROM posts WHERE postID = %s"
+    cur = mysql.connection.cursor()
+    cur.execute(query, (postID,))
+    mysql.connection.commit()
+    
     return redirect('/posts')
 
 # Edits a user's post
