@@ -2,7 +2,7 @@
 
 Authors: Marina Hampton, Zareeb Lorenzana, Skyler Santos
 Modified from OSU Flask starter app on GitHub
-Date: 03.08.2024
+Date: 03.09.2024
 Source URL: https://github.com/osu-cs340-ecampus/flask-starter-app
 
 """
@@ -35,7 +35,6 @@ app.register_blueprint(posts_page, url_prefix='/posts')
 app.register_blueprint(followers_page, url_prefix='/followers')
 
 # Routes 
-
 @app.route('/')
 def root():
     return render_template("main.jinja2", page_title = "Home")
