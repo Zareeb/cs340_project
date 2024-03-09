@@ -31,7 +31,7 @@ CREATE TABLE posts (
     postDate DATE NOT NULL,
     postBody VARCHAR(255) NOT NULL,
     PRIMARY KEY (postID),
-    FOREIGN KEY (userID) REFERENCES users (userID) ON DELETE CAsouSCADE,
+    FOREIGN KEY (userID) REFERENCES users (userID) ON DELETE CASCADE,
     UNIQUE (postID)
 );
 
@@ -76,7 +76,7 @@ CREATE TABLE postsHasLikes (
     likeID INT(11) AUTO_INCREMENT NOT NULL,
     postID INT(11) NOT NULL,
     likedByUserID INT(11),
-    dateLiked DATETIME NOT NULL, 
+    dateLiked DATE NOT NULL, 
     PRIMARY KEY (likeID),
     FOREIGN KEY (postID) REFERENCES posts (postID) ON DELETE CASCADE ,
     FOREIGN KEY (likedByUserID) REFERENCES users (userID) ON DELETE SET NULL,
