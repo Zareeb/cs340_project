@@ -20,7 +20,7 @@
         <tr>
 
             {% for key in post.keys() %}
-                {% if key == "postBody"%}
+                {% if key in ["userID-username", "postBody"]%}
 
                     <td>{{post[key]}}</td>
 

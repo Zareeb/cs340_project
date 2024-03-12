@@ -1,6 +1,6 @@
 """
 
-Authors: Marina Hampton, Zareeb Lorenzana, Skyler Santos
+Authors: Marina Hampton, Zareeb Lorenzana, & Skyler Santos
 Modified from OSU Flask starter app on GitHub
 Date: 03.09.2024
 Source URL: https://github.com/osu-cs340-ecampus/flask-starter-app
@@ -29,7 +29,7 @@ app.config["MYSQL_PASSWORD"] = MYSQL_PASSWORD
 app.config["MYSQL_DB"] = MYSQL_DB
 app.config["MYSQL_CURSORCLASS"] = "DictCursor"
 
-# Register blueprints
+# Registers blueprints
 app.register_blueprint(users_page, url_prefix='/users')
 app.register_blueprint(posts_page, url_prefix='/posts')
 app.register_blueprint(followers_page, url_prefix='/followers')
@@ -41,11 +41,15 @@ def root():
 
 @app.route('/reset')
 def reset_database():
+    """
+    Resets database based on /src/db/sql/DDL.sql file
+    """
     # Get working directory
     get_wd = os.getcwd()
     
+    # Calls mysql and executes source to reset database
+    
     mysql_string = f"mysql -u {MYSQL_USER} -h {MYSQL_HOST} --password={MYSQL_PASSWORD} {MYSQL_DB} -e \"source {get_wd}/src/db/sql/DDL.sql\""
-
     subprocess.run(mysql_string, shell=True)
 
     return redirect(request.referrer)

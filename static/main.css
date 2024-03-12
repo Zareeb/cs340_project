@@ -109,3 +109,7 @@ a:visited {
 .button-link:active, .button-like-link:active {
     background-color: #0056b3; 
 }
+
+.navbar-inverse {
+    border-radius: 0px !important;
+}

@@ -16,7 +16,7 @@ def users():
         cur.execute(query)
         data = cur.fetchall()
 
-        return render_template("users.jinja2", users=data, page_title = "users")
+        return render_template("users.jinja2", users=data, page_title = "Users")
     
     elif request.method == "POST":
         username = request.form["username"]

@@ -12,26 +12,24 @@ DROP TABLE IF EXISTS users;
 -- records the details of users of the app
 CREATE TABLE users (
     userID INT(11) AUTO_INCREMENT NOT NULL,
-    username VARCHAR(20) NOT NULL ,
+    username VARCHAR(20) NOT NULL UNIQUE,
     firstName VARCHAR(255) NOT NULL,
     lastName VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL,
-    phoneNumber VARCHAR(15) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    phoneNumber VARCHAR(15) NOT NULL UNIQUE,
     signupDate DATE NOT NULL,
-    PRIMARY KEY (userID),
-    UNIQUE (userID, username, email, phoneNumber)
+    PRIMARY KEY (userID)
 );
 
 DROP TABLE IF EXISTS posts;
 -- records the details of a user’s posts
 CREATE TABLE posts (
     postID INT(11) AUTO_INCREMENT NOT NULL,
-    userID INT(11) NOT NULL,
+    userID INT(11) NOT NULL ,
     postDate DATE NOT NULL,
     postBody VARCHAR(255) NOT NULL,
     PRIMARY KEY (postID),
-    FOREIGN KEY (userID) REFERENCES users (userID) ON DELETE CASCADE,
-    UNIQUE (postID)
+    FOREIGN KEY (userID) REFERENCES users (userID) ON DELETE CASCADE
 );
 
 DROP TABLE IF EXISTS postsHasTags;
@@ -43,8 +41,7 @@ CREATE TABLE postsHasTags (
     dateTagged DATE NOT NULL, 
     PRIMARY KEY (postTagID),
     FOREIGN KEY (postID) REFERENCES Posts (postID) ON DELETE CASCADE,
-    FOREIGN KEY (tagID) REFERENCES tags (tagID) ON DELETE CASCADE,
-    UNIQUE (postTagID)
+    FOREIGN KEY (tagID) REFERENCES tags (tagID) ON DELETE CASCADE
 );
 
 DROP TABLE IF EXISTS tags;
@@ -52,8 +49,7 @@ DROP TABLE IF EXISTS tags;
 CREATE TABLE tags (
     tagID INT(11) NOT NULL AUTO_INCREMENT,
     tag VARCHAR(255) NOT NULL,
-    PRIMARY KEY (tagID),
-    UNIQUE (tagID)
+    PRIMARY KEY (tagID)
 );
 
 DROP TABLE IF EXISTS followers;
@@ -65,8 +61,7 @@ CREATE TABLE followers (
     followedSince DATE NOT NULL,
     FOREIGN KEY (followeeID) REFERENCES users (userID) ON DELETE CASCADE,
     FOREIGN KEY (followerID) REFERENCES users (userID) ON DELETE CASCADE,
-    PRIMARY KEY (userRelationshipID),
-    UNIQUE (userRelationshipID)
+    PRIMARY KEY (userRelationshipID)
 );
 
 DROP TABLE IF EXISTS likes;
@@ -78,8 +73,7 @@ CREATE TABLE likes (
     dateLiked DATE NOT NULL, 
     PRIMARY KEY (likeID),
     FOREIGN KEY (postID) REFERENCES posts (postID) ON DELETE CASCADE ,
-    FOREIGN KEY (likedByUserID) REFERENCES users (userID) ON DELETE SET NULL,
-    UNIQUE (likeID)
+    FOREIGN KEY (likedByUserID) REFERENCES users (userID) ON DELETE SET NULL
 );
 
 

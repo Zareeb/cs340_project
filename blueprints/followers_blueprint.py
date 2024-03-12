@@ -50,7 +50,7 @@ def followers():
         cur.execute(query2)
         userdata = cur.fetchall()
         
-        return render_template("followers.jinja2", followers=data, userdata=userdata, page_title = "followers")
+        return render_template("followers.jinja2", followers=data, userdata=userdata, page_title = "Followers")
     
     elif request.method == "POST":
         followeeID = request.form["followeeID"]

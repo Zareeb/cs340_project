@@ -30,7 +30,7 @@ def posts():
         cur.execute(query2)
         userdata = cur.fetchall()
 
-        return render_template("posts.jinja2", posts=data, userdata=userdata, page_title = "posts")
+        return render_template("posts.jinja2", posts=data, userdata=userdata, page_title = "Posts")
     
     elif request.method == "POST":
         userID = request.form["userID"]
