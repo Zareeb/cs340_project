@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, redirect
 from flask_mysqldb import MySQL
-import sys
+from datetime import date
 
 mysql = MySQL()
 
@@ -22,15 +22,17 @@ def posts():
         cur = mysql.connection.cursor()
         cur.execute(query1)
         data = cur.fetchall()
-        # print(data, file=sys.stderr )
 
         query2 = "SELECT userID, CONCAT(userID, '-', username) AS 'userID-username' FROM users"
 
         cur = mysql.connection.cursor()
         cur.execute(query2)
         userdata = cur.fetchall()
+        
+        current_date = date.today().isoformat()
 
-        return render_template("posts.jinja2", posts=data, userdata=userdata, page_title = "Posts")
+
+        return render_template("posts.jinja2", posts=data, userdata=userdata, page_title = "Posts", current_date = current_date)
     
     elif request.method == "POST":
         userID = request.form["userID"]
@@ -82,7 +84,7 @@ def posts_edit(postID: int):
         cur = mysql.connection.cursor()
         cur.execute(query1)
         data = cur.fetchall()
-
+        
         return render_template("posts_edit.jinja2", posts=data, page_title = "Edit posts")
 
     if request.method == "POST":

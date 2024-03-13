@@ -1,34 +1,31 @@
 {% extends "main.jinja2"%}
 {% block content %}
 
-    <h4>Manage Users:</h4>
-    
-    <table class="minimalist">
+<h4>Manage Users:</h4>
+
+<table class="table">
     <thead>
         <tr>
             {% for key in users[0].keys() %}
 
-                <th>{{ key }}</th>
+            <th>{{ key }}</th>
 
             {% endfor %}
-            <th colspan="2"><a href="/reset">Reset Database</a></th>
+            <th colspan="2" class="centered-column"><a class="reset-db" href="/reset">Reset Database</a></th>
         </tr>
     </thead>
     <tbody>
         {% for user in users %}
         <tr>
             {% for key in user.keys() %}
-                {% if key == "userID" or key == "signupDate" or key == "phoneNumber"%}
-
+                {% if key in ["userID"]%}
                     <td class="centered-column">{{user[key]}}</td>
-
                 {% else %}
-
                     <td>{{user[key]}}</td>
-
                 {% endif %}
+
             {% endfor %}
-            
+
             <td class="centered-column">
                 <a href="users_edit/{{user.userID}}">Edit</a>
             </td>
@@ -36,66 +33,42 @@
                 <a href="users_delete/{{user.userID}}">Delete</a>
             </td>
         </tr>
-        
+
         {% endfor %}
 
-    <form id="addUser" action="/users" method="POST">
-        <tr>
-        <td class="centered-column">New</td>
-        <td>
-            <input type="text" 
-                   name="username" 
-                   placeholder="Username" 
-                   required 
-                   autofocus
-                   />
-        </td>
-        <td>
-            <input type="text" 
-                   name="firstName" 
-                   placeholder="First Name" 
-                   required pattern="[A-Za-z\s\-]+" 
-                   autocapitalize="words"
-                   />
-        </td>
-        <td>
-            <input type="text" 
-                   name="lastName" 
-                   placeholder="Last Name" 
-                   required pattern="[A-Za-z\s\-]+" 
-                   autocapitalize="words"
-                   />
-        </td>
-        <td>
-            <input type="email" 
-                   name="email" 
-                   placeholder="Email" 
-                   required
-                   />
-        </td>
-        <td>
-            <input type="tel" 
-                   name="phoneNumber" 
-                   placeholder="Must be at least 6 digits" 
-                   required pattern="[0-9]{6,}"
-                   />
-        </td>
-        <td>
-            <input type="date" 
-                   name="signupDate" 
-                   value="" 
-                   required
-                   />
-        </td>
-        <td colspan="2">
-            <button id="addNewBtn" class="button-like-link" type="submit">Add User</button>
-        </td>
-        </tr>
+        <form id="addUser" action="/users" method="POST">
+            <tr>
+                <td class="centered-column">New</td>
+                <td>
+                    <input type="text" name="username" placeholder="Username" required autofocus />
+                </td>
+                <td>
+                    <input type="text" name="firstName" placeholder="First Name" required pattern="[A-Za-z\s\-]+"
+                        autocapitalize="words" />
+                </td>
+                <td>
+                    <input type="text" name="lastName" placeholder="Last Name" required pattern="[A-Za-z\s\-]+"
+                        autocapitalize="words" />
+                </td>
+                <td>
+                    <input type="email" name="email" placeholder="Email" required />
+                </td>
+                <td>
+                    <input type="tel" name="phoneNumber" placeholder="nnn-nnn-nnnn" required
+                        pattern="[1-9]{3}-[0-9]{3}-[0-9]{4}" />
+                </td>
+                <td>
+                    <input type="date" name="signupDate" max="{{current_date}}" value="" required />
+                </td>
+                <td colspan="2">
+                    <button id="addNewBtn" class="button-like-link" type="submit">Add User</button>
+                </td>
+            </tr>
 
-    </form>
+        </form>
 
     </tbody>
-    </table>
-    
+</table>
+
     
 {% endblock %}

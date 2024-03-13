@@ -1,62 +1,66 @@
 {% extends "main.jinja2"%}
 {% block content %}
-
 <h4>Edit Post:</h4>
-    <form id="editPost" action="/posts/posts_edit/{{posts[0].postID}}" method="POST">
-    <table class="minimalist">
-    <thead>
-        <tr>
-            {% for key in posts[0].keys() %}
+<form id="editPost" action="/posts/posts_edit/{{posts[0].postID}}" method="POST">
+    <table class="table">
+        <thead>
+            <tr>
+                {% for key in posts[0].keys() %}
                 {% if key != "userID"%}
 
-                    <th>{{key}}</th>
+                <th>{{key}}</th>
 
                 {%endif%}
-            {% endfor %}
-        </tr>
-    </thead>
-    <tbody>
-        {% for post in posts %}
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for post in posts %}
 
-        <tr>
+            <tr>
 
-            {% for key, val in post.items() %}
-                {% if key == "userID"%}
+                {% for key, val in post.items() %}
+                    {% if key == "userID"%}
 
-                    <input type="hidden" name="{{key}}" value="{{val}}">
+                        <input type="hidden" name="{{key}}" value="{{val}}">
 
-                {% elif key == "postBody"%}
+                    {% elif key == "postBody"%}
 
-                    <td>
-                        <textarea class="text-input-table" type="text" name="postBody" placeholder="" autofocus>{{val}}</textarea>
-                    </td>
+                        <td>
+                            <textarea class="text-input-table" type="text" name="postBody" placeholder=""
+                                autofocus>{{val}}</textarea>
+                        </td>
 
-                {% elif key == "userID-username" %}
+                    {% elif key == "userID-username" %}
 
-                    <td class="centered-column">{{val}}</td>
+                        <td>{{val}}</td>
 
-                {% else %}
+                    {% elif key in ["postID", "postDate"] %}
+                        
+                        <td class="centered-column">{{val}}</td>
 
-                    <td class="centered-column">
-                    <input type="hidden" name="{{key}}" value="{{val}}">
-                    {{val}}
-                    </td>
+                    {% else %}
 
-                {% endif %}
-            {% endfor %}
+                        <td>
+                            <input type="hidden" name="{{key}}" value="{{val}}">
+                            {{val}}
+                        </td>
 
-            <td>
-                <button id="addNewBtn" class="button-like-link" type="submit">Confirm Edit</button>
+                    {% endif %}
+                {% endfor %}
+
+                <td>
+                    <button id="addNewBtn" class="button-like-link" type="submit">Confirm Edit</button>
                 </td>
-            <td>
-                <a href="/posts" class="button-link">Cancel</a>
+                <td>
+                    <a href="/posts" class="button-link">Cancel</a>
                 </td>
-        </tr>
+            </tr>
 
-        {% endfor %}
+            {% endfor %}
 
-    </tbody>
+        </tbody>
     </table>
-    </form>
+</form>
 
 {% endblock %}

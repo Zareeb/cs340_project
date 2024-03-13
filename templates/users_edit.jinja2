@@ -2,80 +2,64 @@
 {% block content %}
 
 <h4>Edit User:</h4>
-    <form id="editUser" action="/users/users_edit/{{users[0].userID}}" method="POST">
-    <table class="minimalist">
-    <thead>
-        <tr>
-            {% for key in users[0].keys() %}
+<form id="editUser" action="/users/users_edit/{{users[0].userID}}" method="POST">
+    <table class="table">
+        <thead>
+            <tr>
+                {% for key in users[0].keys() %}
 
                 <th>{{key}}</th>
 
-            {% endfor %}
-        </tr>
-    </thead>
-    <tbody>
-        {% for user in users %}
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
 
-        <tr>
-        
-            {% for key, val in user.items() %}
-                {% if key in ["userID", "signupDate"]%}
+            <tr>
 
-                    <td class="centered-column">
-                        <input type="hidden" 
-                               name="{{key}}" 
-                               value="{{val}}"
-                               />
-                        {{val}}
-                    </td>
-                
-                {% elif key == "phoneNumber"%}
+                {% for key, val in user.items() %}
+                    {% if key in ["userID", "signupDate"]%}
 
-                    <td class="centered-column">
-                        <input type="tel" 
-                               name="{{key}}" 
-                               value="{{val}}" 
-                               placeholder="Must be at least 6 digits" 
-                               required pattern="[0-9]{6,}"
-                               />
-                    </td>
+                        <td class="centered-column">
+                            <input type="hidden" name="{{key}}" value="{{val}}" />
+                            {{val}}
+                        </td>
 
-                {% elif key in ["firstName", "lastName"] %}
+                    {% elif key == "phoneNumber"%}
 
-                    <td>
-                        <input type="text" 
-                               name="{{key}}" 
-                               value="{{val}}" 
-                               required pattern="[A-Za-z\s\-]+" 
-                               />
-                    </td>
-        
-                {% else %}
+                        <td>
+                            <input type="tel" name="{{key}}" value="{{val}}" placeholder="nnn-nnn-nnnn" required
+                                pattern="[1-9]{3}-[0-9]{3}-[0-9]{4}" />
+                        </td>
 
-                    <td>
-                        <input type="text" 
-                               name="{{key}}" 
-                               value="{{val}}" 
-                               required 
-                               autofocus
-                               />
-                    </td>
+                    {% elif key in ["firstName", "lastName"] %}
 
-                {% endif %}
+                        <td>
+                            <input type="text" name="{{key}}" value="{{val}}" required pattern="[A-Za-z\s\-]+" />
+                        </td>
+
+                    {% else %}
+
+                        <td>
+                            <input type="text" name="{{key}}" value="{{val}}" required autofocus />
+                        </td>
+
+                    {% endif %}
+                {% endfor %}
+
+                <td>
+                    <button id="addNewBtn" class="button-like-link" type="submit">Confirm Edit</button>
+                </td>
+                <td>
+                    <a href="/users" class="button-link">Cancel</a>
+                </td>
+            </tr>
+
             {% endfor %}
 
-            <td>
-                <button id="addNewBtn" class="button-like-link" type="submit">Confirm Edit</button>
-            </td>
-            <td>
-                <a href="/users" class="button-link">Cancel</a>
-            </td>
-        </tr>
-
-        {% endfor %}
-        
-    </tbody>
+        </tbody>
     </table>
-    </form>
+</form>
 
 {% endblock %}

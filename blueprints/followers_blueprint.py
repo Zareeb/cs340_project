@@ -1,12 +1,12 @@
 """
 TODO:
-- Prevent users from following themselves (added to GitHuB repo issues)
+- Prevent users from following themselves (added to GitHuB repo issues) 
 - Prevent users from following users they already follow (added to GitHuB repo issues)
 """
 
 from flask import Blueprint, render_template, request, redirect
 from flask_mysqldb import MySQL
-import sys
+from datetime import date
 
 mysql = MySQL()
 
@@ -50,7 +50,9 @@ def followers():
         cur.execute(query2)
         userdata = cur.fetchall()
         
-        return render_template("followers.jinja2", followers=data, userdata=userdata, page_title = "Followers")
+        current_date = date.today().isoformat()
+        
+        return render_template("followers.jinja2", followers=data, userdata=userdata, page_title = "Followers", current_date = current_date)
     
     elif request.method == "POST":
         followeeID = request.form["followeeID"]

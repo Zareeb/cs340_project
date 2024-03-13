@@ -1,17 +1,15 @@
 {% extends "main.jinja2"%}
 {% block content %}
-
 <h4>Manage Posts</h4>
-    
-    <table class="minimalist">
+<table class="table">
     <thead>
         <tr>
             {% for key in posts[0].keys() %}
 
-                <th>{{key}}</th>
+            <th>{{key}}</th>
 
             {% endfor %}
-            <th colspan="2"><a href="/reset">Reset Database</a></th>
+            <th colspan="2" class="centered-column"><a class="reset-db" href="/reset">Reset Database</a></th>
         </tr>
     </thead>
     <tbody>
@@ -20,15 +18,15 @@
         <tr>
 
             {% for key in post.keys() %}
-                {% if key in ["userID-username", "postBody"]%}
+            {% if key == "postID"%}
 
-                    <td>{{post[key]}}</td>
+            <td class="centered-column">{{post[key]}}</td>
 
-                {% else %}
+            {% else %}
 
-                    <td class="centered-column">{{post[key]}}</td>
+            <td>{{post[key]}}</td>
 
-                {% endif %}
+            {% endif %}
             {% endfor %}
 
             <td class="centered-column"><a href="posts_edit/{{post.postID}}">Edit</a></td>
@@ -36,40 +34,42 @@
         </tr>
 
         {% endfor %}
-        
-    <form id="addPosts" action="/posts" method="POST">
-        <tr>
-        <td class="centered-column">New</td>
-        <td>
-            <select name="userID" required autofocus>
-                <option value="" selected>Select User</option>
-                
-                {% for dict in userdata %}
 
-                    <option value="{{dict['userID']}}">{{dict['userID-username']}}</option>
+        <form id="addPosts" action="/posts" method="POST">
+            <tr>
+                <td class="centered-column">New</td>
+                <td>
+                    <select name="userID" required autofocus>
+                        <option value="" selected>Select User</option>
 
-                {% endfor %}
+                        {% for dict in userdata %}
 
-            </select>
+                        <option value="{{dict['userID']}}">{{dict['userID-username']}}</option>
 
-        </td>
-        <td>
-            <input type="date" 
-                   name="postDate" 
-                   placeholder="" 
-                   required
-                   />
-        </td>
-        <td>
-            <textarea class="text-input-table" type="text" name="postBody" placeholder="Type here"></textarea>
-        </td>
-        <td colspan="2">
-            <button id="addNewBtn" class="button-like-link" type="submit">Create Post</button>
-        </td>
-        </tr>
-    </form>
+                        {% endfor %}
+
+                    </select>
+
+                </td>
+                <td>
+                    <input type="date" 
+                            name="postDate" 
+                            max="{{current_date}}" 
+                            placeholder="" 
+                            required />
+                </td>
+                <td>
+                    <textarea class="text-input-table" type="text" name="postBody" placeholder="Type here"></textarea>
+                </td>
+                <td colspan="2">
+                    <button id="addNewBtn" class="button-like-link" type="submit">Create Post</button>
+                </td>
+            </tr>
+        </form>
 
     </tbody>
-    </table>
+</table>
+
+
 
 {% endblock %}

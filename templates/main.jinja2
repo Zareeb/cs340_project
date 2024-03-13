@@ -5,52 +5,60 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link href="{{ url_for('static', filename='main.css') }}" rel="stylesheet">
+
+    <link rel="icon" href="{{ url_for('static', filename='images/apple-touch-icon.png') }}" type="image/x-icon">
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon-32x32.png') }}" type="image/x-icon">
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon-16x16.png') }}" type="image/x-icon">
+    <link rel="manifest" href="/static/site.webmanifest">
     <title>Simple Social - {{ page_title }}</title>
     <script src="{{ url_for('static', filename='main.js') }}"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
 </head>
 <body>
-    <nav class="navbar navbar navbar-inverse">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="#">Simple Social</a>
-            </div>
+        
+    <div class="site-navigation">
+        <nav class="navbar navbar-inverse">
+        <img src="{{ url_for('static', filename='images/favicon-32x32.png')}}">
+        <h3><a href="/" class="navbar-brand">Simple Social</a></h3>
             <ul class="nav navbar-nav">
-                <li {% if page_title == 'Home'%}class="active"{% endif %}><a href="/">Home</a></li>
-                <li {% if page_title == 'Users'%}class="active"{% endif %}><a href="/users">Users</a></li>
-                <li {% if page_title == 'Posts'%}class="active"{% endif %}><a href="/posts">Posts</a></li>
-                <li {% if page_title == 'Followers'%}class="active"{% endif %}><a href="/followers">Followers</a></li>
-                <li><a href="/likes">Likes</a></li>
-                <li><a href="/tags">Tags</a></li>
+                <li {%if page_title == "Home"%} class="active" {%endif%}><a href="/">Home</a></li>
+                <li {%if page_title == "Users"%} class="active" {%endif%}><a href="/users">Users</a></li>
+                <li {%if page_title == "Posts"%} class="active" {%endif%}><a href="/posts">Posts</a></li>
+                <li {%if page_title == "Followers"%} class="active" {%endif%}><a href="/followers">Followers</a></li>
+                <li {%if page_title == "Likes"%} class="active" {%endif%}><a href="/likes">Likes</a></li>
+                <li {%if page_title == "Tags"%} class="active" {%endif%}><a href="/tags">Tags</a></li>
             </ul>
+        </nav>
+    </div>
+
+    <div class="main-container">
+        
+        <div class="content">
+            {% block content %}
+            <main>
+            <h4>Welcome to Simple Social Database Management</h4>
+            <p>
+            Simple Social is a social media platform boasting 1 million users and 400,000 daily active users. Simple Social boasts a growing user base with 10% of users posting daily, engaging in content through likes and tags, and with an average of 100 active followers per user. With this growth, a database that features tables for user details, posts/contents, likes, followers, and tags is required. Simple Social is currently looking to replace their unscalable and inefficient 
+            </p>
+            <p>
+            Excel sheets with a database that will address their need for an efficient and comprehensive data management system. With a database they can solve existing challenges of data management as well as leverage data to further grow their company. A database will also give Simple Social a structured and scalable approach to see opportunities to improve the overall user experience on the app, achieve their company mission of fostering social connections as well as prepare the company to introduce revenue building opportunities.
+            </p>
+            </main>
+            {% endblock %}
         </div>
-    </nav>
-    {# <nav>
-    <ul>
-        <a href="/">Home</a>
-        <a href="/users">Users</a>
-        <a href="/posts">Posts</a>
-        <a href="/followers">Followers</a>
-        <a href="/likes">Likes</a>
-        <a href="/tags">Tags</a>
-    </ul>
-    </nav> #}
 
-    <main>  
+ 
+    </div>
+
+    <div class="footer">
     
-    {% block content %}
-    <h4>Use Navigation links to manage tables</h4>
-    {% endblock %}
+        <footer class="bottom-fixed">
+            &copy; 2024 Marina Hampton, Zareeb Lorenzana, &#38; Skyler Santos
+        </footer>
 
-    </main>
+    </div>
 
-    <footer>
-    <p>
-        &copy; 2024 Marina Hampton, Zareeb Lorenzana, &#38; Skyler Santos
-    </p>
-    </footer>
 </body>
 </html>

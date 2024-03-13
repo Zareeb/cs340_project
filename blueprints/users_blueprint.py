@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, request, redirect
 from flask_mysqldb import MySQL
+from datetime import date
 
 mysql = MySQL()
 
@@ -15,8 +16,10 @@ def users():
         cur = mysql.connection.cursor()
         cur.execute(query)
         data = cur.fetchall()
+        
+        current_date = date.today().isoformat()
 
-        return render_template("users.jinja2", users=data, page_title = "Users")
+        return render_template("users.jinja2", users = data, page_title = "Users", current_date = current_date)
     
     elif request.method == "POST":
         username = request.form["username"]

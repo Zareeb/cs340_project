@@ -3,7 +3,7 @@
 
 <h4>Manage Followers</h4>
     
-    <table class="minimalist">
+    <table class="table">
     <thead>
         <tr>
 
@@ -12,7 +12,7 @@
                 <th>{{key}}</th>
 
             {% endfor %}
-            <th colspan="2"><a href="/reset">Reset Database</a></th>
+            <th colspan="2"><a class="reset-db" href="/reset">Reset Database</a></th>
         </tr>
     </thead>
     <tbody>
@@ -21,7 +21,7 @@
         <tr>
 
             {% for key in follower.keys() %}
-                {%if key not in ["followeeUsername", "followerUsername"]%}
+                {%if key in ["userRelationshipID", "followeeID", "followerID"]%}
 
                     <td class="centered-column">{{follower[key]}}</td>
                 
@@ -52,7 +52,7 @@
         
             </select>
         </td>
-        <td colspan="2" style="background-color: #000;"></td>
+        <td colspan="2"></td>
         <td>
             <select name="followerID" required autofocus>
                 <option value="" selected>Select Follower</option>
@@ -70,6 +70,7 @@
         <td>
             <input type="date" 
                    name="followedSince" 
+                   max="{{current_date}}"
                    placeholder="" 
                    required 
                    />
