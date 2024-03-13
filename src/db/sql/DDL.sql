@@ -93,11 +93,11 @@ INSERT INTO users (
     signupDate
 )
 VALUES
-    ('bagendbaggins','Frodo','Baggins','frodo@bagend.com','5551234567', '2021-03-11 20:00:00'),
-    ('Snips','Ahsoka','Tano','snips@gmail.com','8888675309', '2023-07-15 09:00:30'),
-    ('4ever_young','Dorian', 'Gray','portrait@gmail.com', '5551234560', '2023-09-05 19:00:40'),
-    ('enigma', 'Alan', 'Turing','ATuring@gmail.com','3932912848', '2021-01-01 10:03:04'),
-    ('AliceOfWonderland', 'Alice', 'Wonderland','alice_curious@rabbit.com','9465294827', '2022-04-01 10:00:00')
+    ('ringbearer','Frodo','Baggins','frodo@bagend.com','555-123-4567', '2021-03-11'),
+    ('Snips','Ahsoka','Tano','snips@gmail.com','888-867-5309', '2023-07-15'),
+    ('4ever_young','Dorian', 'Gray','portrait@gmail.com', '555-123-4560', '2023-09-05'),
+    ('enigma', 'Alan', 'Turing','ATuring@BletchleyPark.com','393-291-2848', '2021-01-01'),
+    ('AliceOfWonderland', 'Alice', 'Wonderland','alice_curious@rabbit.com','946-529-4827', '2022-04-01')
 ;
 
 -- insert data into posts table
@@ -109,7 +109,7 @@ INSERT INTO posts (
 VALUES 
     (4,'2023-07-20 09:00:00','Those who can imagine anything, can create the impossible.' ),
     (4,'2023-08-20 19:00:00', 'Sometimes it is the people who no one imagines anything of who do the things that no one can imagine.'),
-    (1,'2023-05-10 03:00:00','Feeling risky, might wear the One Ring!'),
+    (1,'2023-05-10 03:00:00','I can''t recall the taste of food, nor the sound of water, nor the touch of grass. I''m naked in the dark. There''s nothing--no veil between me and the wheel of fire. I can see him with my waking eyes.'),
     (2,'2024-01-10 05:40:00', 'I have a bad feeling about this'),
     (3,'2023-09-10 03:00:00', 'To define is to limit')
 ;
@@ -135,11 +135,11 @@ INSERT INTO likes (
     dateLiked
 )
 VALUES
-    (2,1,'2023-08-20 19:01:00'),
-    (2,2,'2023-08-20 19:10:00'),
-    (2,3,'2023-08-20 19:20:00'),
-    (2,5,'2023-08-20 19:45:00'),
-    (4,1,'2023-09-10 03:00:00')
+    (2,1,'2023-08-20'),
+    (2,2,'2023-08-20'),
+    (2,3,'2023-08-20'),
+    (2,5,'2023-08-20'),
+    (4,1,'2023-09-10')
 ;
 
 -- insert data into tags table
