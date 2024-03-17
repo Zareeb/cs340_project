@@ -59,19 +59,21 @@ CREATE TABLE followers (
     followeeID INT(11) NOT NULL,
     followerID INT(11) NOT NULL,
     followedSince DATE NOT NULL,
+    UNIQUE (followeeID, followerID),
     FOREIGN KEY (followeeID) REFERENCES users (userID) ON DELETE CASCADE,
     FOREIGN KEY (followerID) REFERENCES users (userID) ON DELETE CASCADE,
     PRIMARY KEY (userRelationshipID)
 );
 
 DROP TABLE IF EXISTS likes;
--- Records a user’s interaction on other users’ posts; also acts as an intersection table between users and Posts 
+-- Records a user’s interaction on other users’ posts 
 CREATE TABLE likes (
     likeID INT(11) AUTO_INCREMENT NOT NULL,
     postID INT(11) NOT NULL,
     likedByUserID INT(11),
     dateLiked DATE NOT NULL, 
     PRIMARY KEY (likeID),
+    UNIQUE (postID, likedByUserID),
     FOREIGN KEY (postID) REFERENCES posts (postID) ON DELETE CASCADE ,
     FOREIGN KEY (likedByUserID) REFERENCES users (userID) ON DELETE SET NULL
 );

@@ -1,7 +1,16 @@
 """
 TODO:
-- Prevent users from following themselves (added to GitHuB repo issues) 
-- Prevent users from following users they already follow (added to GitHuB repo issues)
+- Better frontend to enforce uniqueness?
+"""
+
+"""
+
+Authors: Marina Hampton, Zareeb Lorenzana, & Skyler Santos
+Date: 03.18.2024
+
+Modified from OSU Flask starter app on GitHub
+Source URL: https://github.com/osu-cs340-ecampus/flask-starter-app
+
 """
 
 from flask import Blueprint, render_template, request, redirect

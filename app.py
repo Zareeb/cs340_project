@@ -1,8 +1,9 @@
 """
 
 Authors: Marina Hampton, Zareeb Lorenzana, & Skyler Santos
+Date: 03.18.2024
+
 Modified from OSU Flask starter app on GitHub
-Date: 03.09.2024
 Source URL: https://github.com/osu-cs340-ecampus/flask-starter-app
 
 """
@@ -17,6 +18,7 @@ from credentials import *
 from blueprints.users_blueprint import users_page
 from blueprints.posts_blueprint import posts_page
 from blueprints.followers_blueprint import followers_page
+from blueprints.likes_blueprint import likes_page
 
 app = Flask(__name__)
 
@@ -33,6 +35,7 @@ app.config["MYSQL_CURSORCLASS"] = "DictCursor"
 app.register_blueprint(users_page, url_prefix='/users')
 app.register_blueprint(posts_page, url_prefix='/posts')
 app.register_blueprint(followers_page, url_prefix='/followers')
+app.register_blueprint(likes_page, url_prefix='/likes')
 
 # Routes 
 @app.route('/')
@@ -53,6 +56,10 @@ def reset_database():
     subprocess.run(mysql_string, shell=True)
 
     return redirect(request.referrer)
+
+@app.route('/tags')
+def tags():
+    return render_template("tags.jinja2")
 
 if __name__ == "__main__":
     

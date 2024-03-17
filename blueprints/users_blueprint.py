@@ -1,3 +1,13 @@
+"""
+
+Authors: Marina Hampton, Zareeb Lorenzana, & Skyler Santos
+Date: 03.18.2024
+
+Modified from OSU Flask starter app on GitHub
+Source URL: https://github.com/osu-cs340-ecampus/flask-starter-app
+
+"""
+
 from flask import Blueprint, render_template, request, redirect
 from flask_mysqldb import MySQL
 from datetime import date
