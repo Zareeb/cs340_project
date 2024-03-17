@@ -1,133 +1,92 @@
 {% extends "main.jinja2"%}
-
 {% block content %}
+
 <h4>Manage Likes</h4>
-<table class="minimalist">
+
+<table class="table">
     <thead>
         <tr>
-            <th>likeID</th>
-            <th>postID</th>
-            <th>likedByUserID</th>
-            <th>dateLiked</th>
-            <th>Delete</th>
+
+            {% for key in likes[0].keys() %}
+
+                {%if key in ["postedBy", "likedBy"]%}
+                
+                    <th>{{key}}</th>
+
+                {%elif key in ["likeID", "postID", "dateLiked"]%}
+
+                    <th class="centered-column">{{key}}</td>
+
+                {%endif%}
+
+            {% endfor %}
+            <th class="centered-column" colspan="2"><a class="reset-db" href="/reset">Reset Database</a></th>
         </tr>
     </thead>
+    <tbody>
+        {% for like in likes %}
+
         <tr>
-            <td>1</td>
-            <td>1</td>
-            <td>91</td>
-            <td>2023-12-05 20:50:00</td>
-            <td><input type="checkbox"></td>
+
+            {% for key in like.keys() %}
+
+                {%if key in ["postedBy", "likedBy"]%}
+
+                    <td>{{like[key]}}</td>
+
+                {%elif key in ["likeID", "postID", "dateLiked"]%}
+                
+                    <td class="centered-column">{{like[key]}}</td>
+
+                {%endif%}
+
+            {% endfor %}
+
+            <td class="centered-column"><a href="likes_delete/{{like.likeID}}">Delete</a></td>
         </tr>
-        <tr>
-            <td>2</td>
-            <td>3</td>
-            <td>501</td>
-            <td>2023-12-05 20:50:00</td>
-            <td><input type="checkbox"></td>
-        </tr>
-        <tr>
-            <td>3</td>
-            <td>3</td>
-            <td>66</td>
-            <td>2023-12-05 20:50:01</td>
-            <td><input type="checkbox"></td>
-        </tr>
-        <tr>
-            <td>4</td>
-            <td>3</td>
-            <td>91</td>
-            <td>2023-12-05 20:50:03</td>
-            <td><input type="checkbox"></td>
-        </tr>
-        <tr>
-            <td>5</td>
-            <td>3</td>
-            <td>666</td>
-            <td>2023-12-05 20:50:10</td>
-            <td><input type="checkbox"></td>
-        </tr>         
-        <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td><button type="button">Delete</button></td>
-        </tr>       
-</table> 
 
-<br>
+        {% endfor %}
 
-<form>
-    <fieldset>
-        <legend>Create Likes</legend>
+        <form id="addLikes" action="/likes" method="POST">
+            <tr>
+                <td class="centered-column">New</td>
+                <td>
+                    <select name="postID" required autofocus>
+                        <option value="" selected>Select Post ID</option>
 
-        <br><label for="postID">Post ID:</label>
-        <select>
-            <option value="" selected="selected">Select postID:</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-        </select>
+                        {% for post in posts %}
 
-        <br><label for="likedByUserID">Liked By User ID:</label>
-        <select>
-            <option value="" selected="selected">Select followerID:</option>
-            <option value="66">66</option>
-            <option value="91">91</option>
-            <option value="501">501</option>
-            <option value="666">666</option>
-            <option value="915">915</option>
-        </select>
+                            <option value="{{post.postID}}">{{post.postID}}</option>
+
+                        {% endfor %}
+
+                    </select>
+                </td>
+                <td></td>
+                <td>
+                    <select name="likedByUserID" required autofocus>
+                        <option value="" selected>Select User</option>
+
+                        {% for user in users %}
+
+                            <option value="{{user.userID}}">{{user.username}}</option>
         
+                        {% endfor %}
 
-        <br>
-        
-        <input type="submit" value="Create Like" class="button">
+                    </select>
+                </td>
+                <td>
+                    <input type="date" name="dateLiked" max="{{current_date}}" placeholder="" required />
+                </td>
 
-    </fieldset>
-</form>
+                <td colspan="2">
+                    <button id="addNewBtn" class="button-like-link" type="submit">Like Post</button>
+                </td>
+            </tr>
 
-<br>
+        </form>
 
-<form>
-    <fieldset>
-        <legend>Edit Likes</legend>
+    </tbody>
+</table>
 
-        <label for="likeID">Like ID:</label>
-        <select>
-            <option value="" selected="selected">Select likeID:</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-        </select>
-
-        <br><label for="postID">Post ID:</label>
-        <input type="text" id="postID">
-        
-        <br><label for="likedByUserID">Liked By User ID:</label>
-        <select>
-            <option value="" selected="selected">Select userID:</option>
-            <option value="1">66</option>
-            <option value="2">91</option>
-            <option value="3">501</option>
-            <option value="4">666</option>
-            <option value="5">915</option>
-            <option value="">None</option>
-        </select>
-
-        <br><label for="dateLiked">Date Liked:</label>
-        <input type="date" id="dateLiked" name="dateLiked">
-
-        <br>
-        
-        <input type="submit" value="Edit Like" class="button">
-
-    </fieldset>
-</form>
 {% endblock %}

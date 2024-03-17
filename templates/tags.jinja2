@@ -1,172 +1,92 @@
 {% extends "main.jinja2"%}
-
 {% block content %}
+
 <h4>Manage Tags</h4>
-<table class="minimalist">
+
+<table class="table">
     <thead>
         <tr>
-            <th>tagID</th>
-            <th>tag</th>
-            <th>Delete</th>
+
+            {% for key in tags[0].keys() %}
+
+                {% if key == "tag "%}
+
+                    <th>{{key}}</th>
+
+                {% else %}
+
+                    <th class="centered-column">{{key}}</td>
+
+            {% endfor %}
+
+            <th class="centered-column" colspan="2"><a class="reset-db" href="/reset">Reset Database</a></th>
+            
         </tr>
     </thead>
-        <tr>
-            <td>1</td>
-            <td>order66</td>
-            <td><input type="checkbox"></td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>501stLegion</td>
-            <td><input type="checkbox"></td>
-        </tr>
-        <tr>
-            <td>3</td>
-            <td>jarjarISaSithLord</td>
-            <td><input type="checkbox"></td>
-        </tr>
-        <tr>
-            <td>4</td>
-            <td>MeesaNotASithLord</td>
-            <td><input type="checkbox"></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td></td>
-            <td><button type="button">Delete</button></td>
+    <tbody>
+        {% for tag in tags %}
 
+        <tr>
+
+            {% for key in tag.keys() %}
+
+                {%if key in ["postedBy", "likedBy"]%}
+
+                    <td>{{like[key]}}</td>
+
+                {%elif key in ["likeID", "postID", "dateLiked"]%}
+
+                    <td class="centered-column">{{like[key]}}</td>
+
+                {%endif%}
+
+            {% endfor %}
+
+            <td class="centered-column"><a href="likes_delete/{{like.likeID}}">Delete</a></td>
         </tr>
+
+        {% endfor %}
+
+        <form id="addLikes" action="/likes" method="POST">
+            <tr>
+                <td class="centered-column">New</td>
+                <td>
+                    <select name="postID" required autofocus>
+                        <option value="" selected>Select Post ID</option>
+
+                        {% for post in posts %}
+
+                        <option value="{{post.postID}}">{{post.postID}}</option>
+
+                        {% endfor %}
+
+                    </select>
+                </td>
+                <td></td>
+                <td>
+                    <select name="likedByUserID" required autofocus>
+                        <option value="" selected>Select User</option>
+
+                        {% for user in users %}
+
+                        <option value="{{user.userID}}">{{user.username}}</option>
+
+                        {% endfor %}
+
+                    </select>
+                </td>
+                <td>
+                    <input type="date" name="dateLiked" max="{{current_date}}" placeholder="" required />
+                </td>
+
+                <td colspan="2">
+                    <button id="addNewBtn" class="button-like-link" type="submit">Like Post</button>
+                </td>
+            </tr>
+
+        </form>
+
+    </tbody>
 </table>
 
-<form>
-    <fieldset>
-        <legend>Create Tag</legend>
-
-        <label for="tagInput">Enter Tag:</label>
-        <input type="text" id="tagInput" name="tagInput">
-
-        <br>
-
-        <input type="submit" value="Add Tag" class="button">
-    </fieldset>
-</form>
-
-<form>
-    <fieldset>
-        <legend>Edit Tag</legend>
-        <select id="tagSelection">
-            <option value="" selected="selected">Select Tag</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-        </select>
-
-        <label for="tagID">Tag ID:</label>
-        <input type="text" id="tagID" name="tagID"><br>
-
-        <label for="tag">Tag:</label>
-        <input type="text" id="tag" name="tag">
-        
-        <br>
-
-        <input type="submit" value="Edit Tag" class="button">
-        
-    </fieldset>
-</form>
-
-<h4>Manage Post Tags</h4>
-<table class="minimalist">
-
-    <thead>
-        <tr>
-            <th>postTagID</th>
-            <th>tagID</th>
-            <th>postID</th>
-            <th>dateTagged</th>
-            <th>Delete</th>
-        </tr>
-    </thead>
-        <tr>
-            <td>1</td>
-            <td>3</td>
-            <td>3</td>
-            <td>2023-12-05 20:50:00</td>
-            <td><input type="checkbox"></td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>4</td>
-            <td>3</td>
-            <td>2023-12-05 20:50:00</td>
-            <td><input type="checkbox"></td>
-        </tr>
-        <tr>
-            <td>3</td>
-            <td>3</td>
-            <td>4</td>
-            <td>2023-12-05 20:50:00</td>
-            <td><input type="checkbox"></td>
-        </tr>
-        <tr>
-            <td>4</td>
-            <td>4</td>
-            <td>6</td>
-            <td>2023-12-05 20:50:00</td>
-            <td><input type="checkbox"></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td><button type="button">Delete</button></td>
-        </tr>
-</table>
-
-<form>
-    <fieldset>
-        <legend>Create Post-Tag Data</legend>
-
-        <label for="tagID">Tag ID:</label>
-        <input type="text" id="tagID" name="tagID">
-
-        <label for="postID">Post ID:</label>
-        <input type="text" id="postID" name="postID">
-        
-        <br>
-
-        <input type="submit" value="Add Tag" class="button">
-    </fieldset>
-</form>
-
-<form>
-    <fieldset>
-        <legend>Edit Post-Tag Data</legend>
-        <select id="tagSelection">
-            <option value="" selected="selected">Select Post Tag ID</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-        </select>
-
-        <label for="postTagID">Post Tag ID:</label>
-        <input type="text" id="postTagID" name="postTagID"><br>
-
-        <label for="tagID">Tag ID:</label>
-        <input type="text" id="tagID" name="tagID"><br>
-
-        <label for="postID">Post ID:</label>
-        <input type="text" id="postID" name="postID"><br>
-
-        <label for="dateTagged">Date Tagged:</label>
-        <input type="date" id="dateTagged" name="dateTagged">
-        
-        <br>
-
-        <input type="submit" value="Edit Tag" class="button">
-        
-    </fieldset>
-</form>
 {% endblock %}
