@@ -1,25 +1,22 @@
 {% extends "main.jinja2"%}
 {% block content %}
-
 <h4>Manage Likes</h4>
-
 <table class="table">
     <thead>
         <tr>
 
             {% for key in likes[0].keys() %}
+            {%if key in ["postedBy", "likedBy"]%}
 
-                {%if key in ["postedBy", "likedBy"]%}
-                
-                    <th>{{key}}</th>
+            <th>{{key}}</th>
 
-                {%elif key in ["likeID", "postID", "dateLiked"]%}
+            {%elif key in ["likeID", "postID", "dateLiked"]%}
 
-                    <th class="centered-column">{{key}}</td>
+            <th class="centered-column">{{key}}</td>
 
-                {%endif%}
-
+            {%endif%}
             {% endfor %}
+
             <th class="centered-column" colspan="2"><a class="reset-db" href="/reset">Reset Database</a></th>
         </tr>
     </thead>
@@ -29,17 +26,15 @@
         <tr>
 
             {% for key in like.keys() %}
-
                 {%if key in ["postedBy", "likedBy"]%}
 
                     <td>{{like[key]}}</td>
 
                 {%elif key in ["likeID", "postID", "dateLiked"]%}
-                
+
                     <td class="centered-column">{{like[key]}}</td>
 
                 {%endif%}
-
             {% endfor %}
 
             <td class="centered-column"><a href="likes_delete/{{like.likeID}}">Delete</a></td>
@@ -56,7 +51,7 @@
 
                         {% for post in posts %}
 
-                            <option value="{{post.postID}}">{{post.postID}}</option>
+                        <option value="{{post.postID}}">{{post.postID}}</option>
 
                         {% endfor %}
 
@@ -69,8 +64,8 @@
 
                         {% for user in users %}
 
-                            <option value="{{user.userID}}">{{user.username}}</option>
-        
+                        <option value="{{user.userID}}">{{user.username}}</option>
+
                         {% endfor %}
 
                     </select>
@@ -88,5 +83,4 @@
 
     </tbody>
 </table>
-
 {% endblock %}
