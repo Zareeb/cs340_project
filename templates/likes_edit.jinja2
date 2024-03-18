@@ -1,0 +1,73 @@
+{% extends "main.jinja2"%}
+{% block content %}
+<h4>Edit Like</h4>
+<table class="table">
+    <thead>
+        <tr>
+            {% for key in likes[0].keys() %}
+            {% if key not in ["likedByUserID", "userID"]%}
+
+                {% if key in ["postedBy", "likedBy"] %}
+                
+                    <th>{{key}}</th>
+
+                {% else %}
+            
+                    <th class="centered-column">{{key}}</th>
+
+                {%endif%}
+            {%endif%}
+
+            {% endfor %}
+
+        </tr>
+    </thead>
+    <tbody>
+        <form id="editLikes" action="/likes/likes_edit/{{likes[0].likeID}}" method="POST">
+
+            {% for like in likes %}
+            
+            <tr>
+            
+                {% for key, val in like.items() %}
+                    {% if key in ["likeID", "postID", "postedBy", "dateLiked"] %}
+
+                        <td class="centered-column">
+                            <input type="hidden" name="{{key}}" value="{{val}}">
+                            {{val}}
+                        </td>
+
+                    {% elif key in ["likedByUserID"] %}
+
+                        <td>
+                            <select name="likedByUserID" required autofocus>
+                                <option value="" selected>Select User</option>
+                                <option value="">None</option>
+                        
+                                {% for user in users %}
+                        
+                                <option value="{{ user['userID']}}">{{ user['username'] }}</option>
+                        
+                                {% endfor %}
+                        
+                            </select>
+                        </td>
+
+                    {% endif %}
+                {% endfor %}
+            
+                <td>
+                    <button id="addNewBtn" class="button-like-link" type="submit">Confirm Edit</button>
+                </td>
+                <td>
+                    <a href="/likes" class="button-link">Cancel</a>
+                </td>
+            </tr>
+            
+            {% endfor %}
+
+        </form>
+    </tbody>
+</table>
+
+{% endblock %}
