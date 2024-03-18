@@ -14,13 +14,10 @@ from datetime import date
 
 mysql = MySQL()
 
-tags_page = Blueprint('likes', __name__, url_prefix='/likes')
+tags_page = Blueprint('tags', __name__, url_prefix='/tags')
 
-#
-#
-#
 @tags_page.route('/', methods=["POST", "GET"])
-def likes():  
+def tags():  
     if request.method == "GET":
         query1 = """
                 SELECT
@@ -39,70 +36,49 @@ def likes():
                 
         cur = mysql.connection.cursor()
         cur.execute(query1)
-        tags_data = cur.fetchall()
+        postsHasTags_data = cur.fetchall()
         
-        # Gets users data
         query2 = """
-                SELECT 
-                    userID, 
-                    username 
-                FROM
-                    users
-                ORDER BY
-                    username
+                SELECT * from tags
+                ORDER BY tag
                 """
-        
+                
         cur = mysql.connection.cursor()
         cur.execute(query2)
-        user_data = cur.fetchall()
-
-        # Gets posts data
-        query3 = """
-                SELECT 
-                    postID 
-                FROM 
-                    posts 
-                ORDER BY 
-                    postID
-                """
-        
-        cur = mysql.connection.cursor()
-        cur.execute(query3)
-        posts_data = cur.fetchall()
+        tags_data = cur.fetchall()
         
         current_date = date.today().isoformat()
         
-        return render_template("tags.jinja2", tags = tags_data, users = user_data, posts = posts_data, page_title = "Tags", current_date = current_date)
+        return render_template("tags.jinja2", postsHasTags = postsHasTags_data, tags = tags_data, page_title = "Tags", current_date = current_date)
     
     elif request.method == "POST":
+        postTagID = request.form["postTagID"]
+        tagID = request.form["tagID"]
         postID = request.form["postID"]
-        likedByUserID = request.form["likedByUserID"]
-        dateLiked = request.form["dateLiked"]
+        dateTagged = request.form["dateTagged"]
 
-        query = """INSERT INTO likes (
-                postID, 
-                likedByUserID, 
-                dateLiked)
-                VALUES (%s, %s, %s)
+        query = """INSERT INTO postHasTags (
+                postTagID, 
+                tagID, 
+                postID,
+                dateTagged)
+                VALUES (%s, %s, %s, %s)
                 """
 
         cur = mysql.connection.cursor()
 
-        values = (postID, likedByUserID, dateLiked)
-
+        values = (postTagID, tagID, postID, dateTagged)
         cur.execute(query, values)
-
         mysql.connection.commit()
     
-    return redirect("/likes")
+    return redirect("/tags")
 
-# Deletes relationship between two users
-@tags_page.route('/likes_delete/<int:likeID>')
-def tags_delete(likeID: int):
+@tags_page.route('/tags_delete/<int:postTagID>')
+def tags_delete(postTagID: int):
 
-    query = "DELETE FROM likes WHERE likeID = %s"
+    query = "DELETE FROM postsHasTags WHERE postTagID = %s"
     cur = mysql.connection.cursor()
-    cur.execute(query, (likeID,))
+    cur.execute(query, (postTagID,))
     mysql.connection.commit()
     
-    return redirect('/likes')
+    return redirect('/tags')
