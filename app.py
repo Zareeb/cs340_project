@@ -19,6 +19,7 @@ from blueprints.users_blueprint import users_page
 from blueprints.posts_blueprint import posts_page
 from blueprints.followers_blueprint import followers_page
 from blueprints.likes_blueprint import likes_page
+from blueprints.tags_blueprint import tags_page
 
 app = Flask(__name__)
 
@@ -36,6 +37,7 @@ app.register_blueprint(users_page, url_prefix='/users')
 app.register_blueprint(posts_page, url_prefix='/posts')
 app.register_blueprint(followers_page, url_prefix='/followers')
 app.register_blueprint(likes_page, url_prefix='/likes')
+app.register_blueprint(tags_page, url_prefix='/tags')
 
 # Routes 
 @app.route('/')
@@ -56,10 +58,6 @@ def reset_database():
     subprocess.run(mysql_string, shell=True)
 
     return redirect(request.referrer)
-
-@app.route('/tags')
-def tags():
-    return render_template("tags.jinja2")
 
 if __name__ == "__main__":
     
