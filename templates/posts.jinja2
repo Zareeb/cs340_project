@@ -20,7 +20,7 @@
             {% for key in post.keys() %}
             {% if key == "postID"%}
 
-            <td class="centered-column">{{post[key]}}</td>
+            <td class="centered-column" id="{{post[key]}}">{{post[key]}}</td>
 
             {% else %}
 
