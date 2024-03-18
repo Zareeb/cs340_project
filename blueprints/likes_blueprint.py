@@ -40,7 +40,7 @@ def likes():
                     posts ON likes.postID = posts.postID
                 JOIN 
                     users AS users_postedBy ON posts.userID = users_postedBy.userID
-                JOIN
+                LEFT JOIN
                     users AS users_likedBy ON likes.likedByUserID = users_likedBy.userID
                 """
                 
@@ -78,7 +78,7 @@ def likes():
         posts_data = cur.fetchall()
         
         current_date = date.today().isoformat()
-        
+                            
         return render_template("likes.jinja2", likes = likes_data, users = user_data, posts = posts_data, page_title = "Likes", current_date = current_date)
     
     elif request.method == "POST":
