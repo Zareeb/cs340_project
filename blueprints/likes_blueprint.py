@@ -113,3 +113,75 @@ def likes_delete(likeID: int):
     mysql.connection.commit()
     
     return redirect('/likes')
+
+@likes_page.route('likes_edit/<int:likeID>', methods=["POST", "GET"])
+def likes_edit(likeID: int):
+    
+    if request.method == "GET":
+        query1 = """
+                SELECT
+                    likes.likeID,
+                    likes.postID,
+                    users_postedBy.userID,
+                    users_postedBy.username AS postedBy,
+                    likes.likedByUserID,
+                    users_likedBy.username AS likedBy,
+                    likes.dateLiked
+                FROM
+                    likes
+                JOIN 
+                    posts ON likes.postID = posts.postID
+                JOIN 
+                    users AS users_postedBy ON posts.userID = users_postedBy.userID
+                LEFT JOIN
+                    users AS users_likedBy ON likes.likedByUserID = users_likedBy.userID
+                WHERE 
+                    likeID = %s
+                """ % (likeID)
+                
+        cur = mysql.connection.cursor()
+        cur.execute(query1)
+        data = cur.fetchall()
+        
+        query2 = """
+                SELECT 
+                    userID, 
+                    username 
+                FROM
+                    users
+                ORDER BY
+                    username
+                """
+        
+        cur = mysql.connection.cursor()
+        cur.execute(query2)
+        user_data = cur.fetchall()
+        
+        return render_template("likes_edit.jinja2", likes=data, users=user_data, page_title = "Edit Likes")
+
+    if request.method == "POST":
+        likeID = request.form["likeID"]
+        postID = request.form["postID"]
+        likedByUserID = request.form["likedByUserID"]
+        dateLiked = request.form["dateLiked"]
+        
+        if likedByUserID == "":
+            likedByUserID = None
+
+        query = """
+                UPDATE 
+                    likes
+                SET 
+                    postID = %s,
+                    likedByUserID = %s,
+                    dateLiked = %s                    
+                WHERE 
+                    likeID = %s                
+                """
+        
+        cur = mysql.connection.cursor()
+        values = (postID, likedByUserID, dateLiked, likeID)
+        cur.execute(query, values)
+        mysql.connection.commit()
+
+        return redirect('/likes')
