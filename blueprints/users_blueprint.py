@@ -87,14 +87,18 @@ def users_edit(userID: int):
         phoneNumber = request.form["phoneNumber"]
         signupDate = request.form["signupDate"]
 
-        query = """UPDATE users SET 
-                username = %s,
-                firstName = %s,
-                lastName = %s,
-                email = %s,
-                phoneNumber = %s,
-                signupDate = %s
-                WHERE userID = %s                
+        query = """
+                UPDATE 
+                    users
+                SET 
+                    username = %s,
+                    firstName = %s,
+                    lastName = %s,
+                    email = %s,
+                    phoneNumber = %s,
+                    signupDate = %s
+                WHERE
+                    userID = %s                
                 """
         
         cur = mysql.connection.cursor()

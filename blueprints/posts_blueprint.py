@@ -91,6 +91,7 @@ def posts_edit(postID: int):
                 JOIN users u ON p.userID = u.userID
                 WHERE postID = %s
                 """ % (postID)
+                
         cur = mysql.connection.cursor()
         cur.execute(query1)
         data = cur.fetchall()
@@ -103,11 +104,15 @@ def posts_edit(postID: int):
         postDate = request.form["postDate"]
         postBody = request.form["postBody"]
 
-        query = """UPDATE posts SET 
-                userID = %s,
-                postDate = %s,
-                postBody = %s
-                WHERE postID = %s                
+        query = """
+                UPDATE 
+                    posts
+                SET 
+                    userID = %s,
+                    postDate = %s,
+                    postBody = %s
+                WHERE 
+                    postID = %s                
                 """
         
         cur = mysql.connection.cursor()
