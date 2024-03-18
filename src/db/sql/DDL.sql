@@ -74,11 +74,9 @@ CREATE TABLE likes (
     dateLiked DATE NOT NULL, 
     PRIMARY KEY (likeID),
     UNIQUE (postID, likedByUserID),
-    FOREIGN KEY (postID) REFERENCES posts (postID) ON DELETE CASCADE ,
-    FOREIGN KEY (likedByUserID) REFERENCES users (userID) ON DELETE SET NULL
+    FOREIGN KEY (likedByUserID) REFERENCES users (userID) ON DELETE SET NULL,
+    FOREIGN KEY (postID) REFERENCES posts (postID) ON DELETE CASCADE
 );
-
-
 
 /*
 Insert data below 
