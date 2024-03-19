@@ -2,7 +2,7 @@
 Team 181 - Marina Hampton, Zareeb Lorenzana, & Skyler Santos
 DDL.SQL - hand authored
 Database of Simple Social App
-Date Updated: 03.07.2024
+Date Updated: 03.18.2024
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -107,11 +107,11 @@ INSERT INTO posts (
     postBody
 )
 VALUES 
-    (4,'2023-07-20 09:00:00','Those who can imagine anything, can create the impossible.' ),
-    (4,'2023-08-20 19:00:00', 'Sometimes it is the people who no one imagines anything of who do the things that no one can imagine.'),
-    (1,'2023-05-10 03:00:00','I can''t recall the taste of food, nor the sound of water, nor the touch of grass. I''m naked in the dark. There''s nothing--no veil between me and the wheel of fire. I can see him with my waking eyes.'),
-    (2,'2024-01-10 05:40:00', 'I have a bad feeling about this'),
-    (3,'2023-09-10 03:00:00', 'To define is to limit')
+    (4,'2023-07-20','Those who can imagine anything, can create the impossible.' ),
+    (4,'2023-08-20', 'Sometimes it is the people who no one imagines anything of who do the things that no one can imagine.'),
+    (1,'2023-05-10','I can''t recall the taste of food, nor the sound of water, nor the touch of grass. I''m naked in the dark. There''s nothing--no veil between me and the wheel of fire. I can see him with my waking eyes.'),
+    (2,'2024-01-10', 'I have a bad feeling about this'),
+    (3,'2023-09-10', 'To define is to limit')
 ;
 
 -- insert data into followers table
