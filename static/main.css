@@ -5,6 +5,7 @@
 }
 
 html {
+
 }
 
 body {
@@ -180,4 +181,11 @@ textarea {
 
 .button-link:active, .button-like-link:active {
     background-color: #0056b3;
+}
+
+.warning {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: -5px;
 }
