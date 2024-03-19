@@ -1,0 +1,68 @@
+{% extends "main.jinja2"%}
+{% block content %}
+<h4>Edit Post's Tags</h4>
+<table class="table">
+    <thead>
+        <tr>
+
+            {% for key in postsHasTags[0].keys() %}
+                {% if key != "tag" %}
+
+                    <th class="centered-column">{{key}}</th>
+                    
+                {% else %}
+                    <th>{{key}}</th>
+
+                {% endif %}
+            {% endfor %}
+
+        </tr>
+    </thead>
+    <tbody>
+        <form id="editTags" action="/postsHasTags/postsHasTags_edit/{{postsHasTags[0].postTagID}}" method="POST">
+
+            {% for entry in postsHasTags %}
+
+            <tr>
+            
+                {% for key, val in entry.items() %}
+                    {% if key not in ["tagID"] %}
+                        <td class="centered-column">
+                        <input type="hidden" name="{{key}}" value="{{val}}">
+                        {{val}}
+                        </td>
+
+                    {% else %}
+
+                        <td>
+                            <select name="tagID" required autofocus>
+                                <option value="" selected>Select Tag</option>
+                        
+                                {% for tag in tags %}
+                        
+                                <option value="{{ tag['tagID']}}">{{ tag['tag'] }}</option>
+                        
+                                {% endfor %}
+                        
+                            </select>
+                        </td>
+
+                    {% endif %}
+                    
+                {% endfor %}
+            
+                <td>
+                    <button id="addNewBtn" class="button-like-link" type="submit">Confirm Edit</button>
+                </td>
+                <td>
+                    <a href="/postsHasTags" class="button-link">Cancel</a>
+                </td>
+            </tr>
+            
+            {% endfor %}
+
+        </form>
+    </tbody>
+</table>
+
+{% endblock %}
