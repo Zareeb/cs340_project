@@ -1,15 +1,12 @@
 """
-TODO:
-- Better frontend to enforce uniqueness?
-"""
-
-"""
 
 Authors: Marina Hampton, Zareeb Lorenzana, & Skyler Santos
 Date: 03.18.2024
 
 Modified from OSU Flask starter app on GitHub
 Source URL: https://github.com/osu-cs340-ecampus/flask-starter-app
+
+Implements Create, Read, and Delete operations
 
 """
 
@@ -19,9 +16,11 @@ mysql = MySQL()
 
 followers_page = Blueprint('followers', __name__, url_prefix='/followers')
 
-# Reads database, allows creation of new follower relationship(s)
+# Reads followers databas and allows creation of new follower relationships
 @followers_page.route('/', methods=["POST", "GET"])
-def followers():  
+def followers():
+    
+    # Read operation
     if request.method == "GET":
         query1 = """
                 SELECT 
@@ -61,7 +60,10 @@ def followers():
         
         return render_template("followers.jinja2", followers=data, userdata=userdata, page_title = "Followers", current_date = current_date)
     
+    # Insert operation
     elif request.method == "POST":
+        
+        # Catches and raises exception from duplicate entries
         try:
             followeeID = request.form["followeeID"]
             followerID = request.form["followerID"]
@@ -70,6 +72,7 @@ def followers():
             if followeeID == followerID:
                 warning = "You cannot follow yourself."
                 raise IntegrityError
+            
             else:
                 query = """INSERT INTO followers (
                         followeeID, 

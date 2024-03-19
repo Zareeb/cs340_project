@@ -11,6 +11,8 @@ Date: 03.18.2024
 Modified from OSU Flask starter app on GitHub
 Source URL: https://github.com/osu-cs340-ecampus/flask-starter-app
 
+Implements Create, Read, Update (nullable relationship), and Delete operations
+
 """
 
 from imports import *
@@ -19,9 +21,11 @@ mysql = MySQL()
 
 likes_page = Blueprint('likes', __name__, url_prefix='/likes')
 
-# Reads database, allows liking of new post
+# Reads likes database and allows liking of new post
 @likes_page.route('/', methods=["POST", "GET"])
 def likes():  
+    
+    # Read operation
     if request.method == "GET":
         query1 = """
                 SELECT
@@ -45,8 +49,7 @@ def likes():
         cur = mysql.connection.cursor()
         cur.execute(query1)
         likes_data = cur.fetchall()
-        
-        # Gets users data
+
         query2 = """
                 SELECT 
                     userID, 
@@ -57,11 +60,9 @@ def likes():
                     username
                 """
         
-        cur = mysql.connection.cursor()
         cur.execute(query2)
         user_data = cur.fetchall()
 
-        # Gets posts data
         query3 = """
                 SELECT 
                     postID 
@@ -71,7 +72,6 @@ def likes():
                     postID
                 """
         
-        cur = mysql.connection.cursor()
         cur.execute(query3)
         posts_data = cur.fetchall()
         
@@ -79,6 +79,7 @@ def likes():
                             
         return render_template("likes.jinja2", likes = likes_data, users = user_data, posts = posts_data, page_title = "Likes", current_date = current_date)
     
+    # Insert operation
     elif request.method == "POST":
         postID = request.form["postID"]
         likedByUserID = request.form["likedByUserID"]
@@ -90,7 +91,8 @@ def likes():
                 dateLiked)
                 VALUES (%s, %s, %s)
                 """
-
+    
+        # Catches exception from duplicate entries
         try:
             cur = mysql.connection.cursor()
             values = (postID, likedByUserID, dateLiked)
@@ -102,7 +104,7 @@ def likes():
     
     return redirect("/likes")
 
-# Deletes relationship between two users
+# Deletes an entry from the likes table
 @likes_page.route('/likes_delete/<int:likeID>')
 def likes_delete(likeID: int):
 
@@ -113,6 +115,7 @@ def likes_delete(likeID: int):
     
     return redirect('/likes')
 
+# Queries database for specific ID. Edits like entry and allows likes to be set to NULL or to other users (though might not be good practice)
 @likes_page.route('likes_edit/<int:likeID>', methods=["POST", "GET"])
 def likes_edit(likeID: int):
     
@@ -152,7 +155,6 @@ def likes_edit(likeID: int):
                     username
                 """
         
-        cur = mysql.connection.cursor()
         cur.execute(query2)
         user_data = cur.fetchall()
         
@@ -177,7 +179,8 @@ def likes_edit(likeID: int):
                 WHERE 
                     likeID = %s                
                 """
-                
+
+        # Catches exception from duplicate entries
         try:
             cur = mysql.connection.cursor()
             values = (postID, likedByUserID, dateLiked, likeID)

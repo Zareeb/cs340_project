@@ -6,6 +6,8 @@ Date: 03.18.2024
 Modified from OSU Flask starter app on GitHub
 Source URL: https://github.com/osu-cs340-ecampus/flask-starter-app
 
+Implements Create, Read, Update, and Delete operations
+
 """
 
 from imports import *
@@ -14,10 +16,11 @@ mysql = MySQL()
 
 users_page = Blueprint('users', __name__, url_prefix='/users')
 
-# Reads database, allows creation of new user(s)
+# Reads users database and allows creation of new user
 @users_page.route('/', methods=["POST", "GET"])
 def users():   
 
+    # Read operation
     if request.method == "GET":
         query = "SELECT * FROM users"
 
@@ -29,6 +32,7 @@ def users():
 
         return render_template("users.jinja2", users = data, page_title = "Users", current_date = current_date)
     
+    # Insert operation
     elif request.method == "POST":
         username = request.form["username"]
         firstName = request.form["firstName"]
@@ -46,6 +50,8 @@ def users():
                 signupDate) 
                 VALUES (%s, %s, %s, %s, %s, %s)
                 """
+
+        # Catches exception from duplicate entries
         try:
             cur = mysql.connection.cursor()
             values = (username, firstName, lastName, email, phoneNumber, signupDate)
@@ -66,7 +72,7 @@ def users():
 
     return redirect("/users")
 
-# Deletes user from database
+# Deletes an entry from users table
 @users_page.route('/users_delete/<int:userID>')
 def users_delete(userID: int):
     query = "DELETE FROM users WHERE userID = %s"
@@ -76,7 +82,7 @@ def users_delete(userID: int):
 
     return redirect('/users')
 
-# Edits user entry
+# Queries database for specific ID. Edits user entry and allows modification of user information
 @users_page.route('/users_edit/<int:userID>', methods=["POST", "GET"])
 def users_edit(userID: int):
 
@@ -110,7 +116,8 @@ def users_edit(userID: int):
                 WHERE
                     userID = %s                
                 """
-                
+        
+        # Catches exception from duplicate entries
         try:
             cur = mysql.connection.cursor()
             values = (username, firstName, lastName, email, phoneNumber, signupDate, userID)
