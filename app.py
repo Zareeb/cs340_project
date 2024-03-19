@@ -7,11 +7,7 @@ Modified from OSU Flask starter app on GitHub
 Source URL: https://github.com/osu-cs340-ecampus/flask-starter-app
 
 """
-
-from flask import Flask, render_template, redirect, request
-from flask_mysqldb import MySQL
-import subprocess
-import os
+from imports import *
 from credentials import *
 
 # Import blueprints
@@ -61,4 +57,4 @@ def reset_database():
 
 if __name__ == "__main__":
     
-    app.run(port=3793, debug=True)
+    app.run(port=3794, debug=True)
