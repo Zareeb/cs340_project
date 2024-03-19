@@ -1,8 +1,6 @@
 /*
 Team 181 - Marina Hampton, Zareeb Lorenzana, & Skyler Santos
-* = required
-** = QoL 
-Date Updated: 02.23.2024
+Date Updated: 03.18.2024
 Citation for the following SQL:
 Date: 2/14/2024
 Adapted from: 
@@ -10,6 +8,7 @@ Source URL: https://canvas.oregonstate.edu/courses/1946034/pages/exploration-dat
 */
 
 -- DML operations for users
+-- ----------------------------------------------
 
 --  * SELECT/SHOW all users and relevant information for the Browse/list users page
 SELECT * FROM users;
@@ -18,161 +17,208 @@ SELECT * FROM users;
 INSERT INTO users (username, firstName, lastName, email, phoneNumber, signupDate)
 VALUES (:userName, :firstName, :lastName, :email, :phoneNumber, :NOW());
 
+-- * DELETE a User
+DELETE FROM users WHERE userID = :userID_selected_from_browse_ManageUser_page;
 
--- ** get a single User's data for the Update User's form - edit button - will auto populate on form
-SELECT 
-    userID,
-    username,
-    firstName,
-    lastName,
-    email,
-    phoneNumber,
-    signupDate
-FROM users 
-WHERE userID = :userID_selected_from_browse_Users_page;
-
--- get all users and their userID, firstName, lastName to populate a dropdown to show users who have a Post 
--- SELECT DISTINCT users.userID, users.firstName, users.lastName
--- FROM
---     users
--- JOIN
---     posts ON users.userID = posts.userID;
-
--- update a User's data based on submission of the Update User form 
+-- UPDATE a User's data based on submission of the Update User form 
 UPDATE users SET firstName = :fnameInput, lastName= :lnameInput, email = :emailInput 
 WHERE userID= :userID_from_the_update_form; 
-
--- * delete a User
-DELETE FROM users WHERE userID = :userID_selected_from_browse_User_page;
-
 
 
 -- DML operations for followers
 -- ----------------------------------------------
 
+-- * SELECT/DISPLAY all followers info including username of the followee and follower from users
+SELECT
+    f.userRelationshipID,
+    u1.username AS followeeUsername,
+    f.followeeID,
+    f.followerID,
+    u2.username AS followerUsername,
+    f.followedSince
+FROM 
+    followers f
+JOIN 
+    users u1 ON f.followeeID = u1.userID
+JOIN 
+    users u2 ON f.followerID = u2.userID;
+
+-- SELECT to order alphabetically by username
+SELECT 
+    userID,
+    username 
+FROM
+    users
+ORDER BY
+    username;
+
 -- * INSERT a follower
 INSERT INTO followers (followeeID, followerID, followedSince)
 VALUES (:followeeUserID, :followerUserID, NOW());
 
--- * SELECT/DISPLAY all followers info
-SELECT * FROM Follwers; 
-
--- ** Get all users and their followers with their IDs and names to populate the User and their followers dropdown.
-SELECT users.userID, users.firstName, users.lastName, followers.followerID
-FROM
-    users
-LEFT JOIN
-    followers ON users.userID = followers.followeeID;
-
-
+-- DELETE relationship between two users
+DELETE FROM followers WHERE userRelationshipID = :userID_selected_from_browse_ManageFollowers_page
 
 -- DML operations for posts
 -- ----------------------------------------------
 
--- SELECT/DISPLAY all posts and data
-SELECT * FROM posts;
+-- SELECT/DISPLAY all posts and data including userID-username
+SELECT
+p.postID,
+CONCAT(u.userID, '-', u.username) AS 'userID-username',
+p.postDate,
+p.postBody
+FROM posts p
+JOIN users u ON p.userID = u.userID;
+
+-- SELECT all users as well as userID-username
+SELECT userID, CONCAT(userID, '-', username) AS 'userID-username' FROM users;
 
 -- * INSERT a Post
 INSERT INTO posts (userID, postDate, postBody)
 VALUES (:userID, NOW(), :postBody);
 
--- ** show all posts data as well Likes and tags for list all posts page 
-SELECT
-    P.postID,
-    P.userID,
-    P.postDate,
-    P.postBody,
-    GROUP_CONCAT(DISTINCT T.tag) AS tags,
-    GROUP_CONCAT(DISTINCT PL.likedByUserID) AS likedByUserID
-FROM
-    posts P
-LEFT JOIN
-    postsHasTags PT ON P.postID = PT.postID
-LEFT JOIN
-    tags T ON PT.tagID = T.tagID
-LEFT JOIN
-    likes PL ON P.postID = PL.postID
-GROUP BY
-    P.postID;
+-- DELETE a post 
+DELETE FROM posts WHERE postID = :postID_selected_from_all_Posts_from_ManagePosts;
 
---  ** get all posts from a select User
-SELECT posts.postID, posts.postDate, posts.postBody
-FROM posts
-INNER JOIN
-    users ON posts.userID = users.userID
-WHERE
-    users.userID = :userID_selected_from_browse_User_page;
+-- SELECT/Display a users' post including userID and post info and joins posts on users
+SELECT 
+p.postID, 
+p.userID,
+CONCAT(u.userID, '-', u.username) AS 'userID-username',
+p.postDate,
+p.postBody
+FROM posts p
+JOIN users u ON p.userID = u.userID
+WHERE postID = :postID_selected_from_all_Posts_from_ManagePosts;
 
--- delete a Post 
-DELETE FROM posts WHERE postID = :postID_selected_from_all_Posts_from_a_select_User;
+-- UPDATE post from existing post data
+UPDATE 
+    posts
+SET 
+    userID = :userID_selected_from_browse_ManageUser_page,
+    postDate = :postDate_selected,
+    postBody = :postBody_selected, 
+WHERE 
+    postID = :postID_selected_from_all_Posts_from_ManagePosts;
 
 -- DML operations for likes
 -- ----------------------------------------------
 
--- * SELECT/DISPLAY all likes
-SELECT * FROM likes;
+-- * SELECT/DISPLAY all likes on posts, ID of user who liked the post, and who posted the post
+SELECT
+    likes.likeID,
+    likes.postID,
+    users_postedBy.userID,
+    users_postedBy.username AS postedBy,
+    likes.likedByUserID,
+    users_likedBy.username AS likedBy,
+    likes.dateLiked
+FROM
+    likes
+JOIN 
+    posts ON likes.postID = posts.postID
+JOIN 
+    users AS users_postedBy ON posts.userID = users_postedBy.userID
+LEFT JOIN
+    users AS users_likedBy ON likes.likedByUserID = users_likedBy.userID;
+
+-- Gets users data and orders alphabetically for dropdown
+SELECT 
+    userID, 
+    username 
+FROM
+    users
+ORDER BY
+    username;
+
+-- Gets posts data
+SELECT 
+    postID 
+FROM 
+    posts 
+ORDER BY 
+    postID;
+
+-- DELETE like
+DELETE FROM likes WHERE likeID = :likeID_selected_from_ManageLikes_page;
+
+-- SELECT data from likes on a post, including usernames of who posted and liked the post
+SELECT
+    likes.likeID,
+    likes.postID,
+    users_postedBy.userID,
+    users_postedBy.username AS postedBy,
+    likes.likedByUserID,
+    users_likedBy.username AS likedBy,
+    likes.dateLiked
+FROM
+    likes
+JOIN 
+    posts ON likes.postID = posts.postID
+JOIN 
+    users AS users_postedBy ON posts.userID = users_postedBy.userID
+LEFT JOIN
+    users AS users_likedBy ON likes.likedByUserID = users_likedBy.userID
+WHERE 
+    likeID = :likeID_selected_from_ManageLikes_page;
 
 -- * INSERT new data for likes
 INSERT INTO likes (postID, likedByUserID, dateLiked)
 VALUES (:postID, :likedByUserID, NOW());
 
--- * UPDATE likes table to set likedByUserID to NULL when user is deleted
-UPDATE likes
-SET likedByUserID = NULL
-WHERE likedByUserID = :userID_to_delete;
+-- -- * UPDATE likes table to set likedByUserID to NULL when user is deleted
+-- UPDATE likes
+-- SET likedByUserID = NULL
+-- WHERE likedByUserID = :userID_to_delete;
 
--- ** SELECT and show number of likes and likedByUserID of selected Post from dropdown
-SELECT 
-    (SELECT COUNT(*) 
-    FROM Likes 
-    WHERE postID = :postID_selected_from_all_Posts_page) AS likes_count,
-    (SELECT GROUP_CONCAT(likedByUserID) 
-    FROM Likes 
-    WHERE postID = :postID_selected_from_all_Posts_page) AS liked_user_ids;
+-- * UPDATE/ edit existing likes data
+UPDATE 
+    likes
+SET 
+    postID = :postID_selected_from_all_from_manage_likes,
+    likedByUserID = :userName_selected_from_dropdown_all_userNames,
+    dateLiked = :existing_date_from_manage_likes_page;                   
+WHERE 
+    likeID = :likeID_from_manage_likes_page;
 
-
--- DML operations for tags
+-- DML operations for tags and postHasTags (postHasTags and tags are on the same page)
 -- ----------------------------------------------
 
--- * SELECT/DISPLAY all data for tags table
-SELECT * FROM tags;
-
--- * INSERT a new Tag
-INSERT INTO tags (tag)
-VALUES (:tag);
-
- -- ** get tags from a selected Post - do we move it? 
-SELECT P.*
-FROM posts P
-JOIN postsHasTags PT ON P.postID = PT.postID
-JOIN tags T ON PT.tagID = T.tagID
-WHERE T.tagID = :tagID_selected_from_all_Tags_page;
-
--- ** get all tags a selected User has ever used
-SELECT DISTINCT
-    T.tag
+-- * SELECT/DISPLAY all data for Manage Post's Tags table
+SELECT
+    p.postTagID,
+    p.tagID,
+    t.tag,
+    p.postID,
+    p.dateTagged
 FROM
-    users U
-JOIN
-    posts P ON U.userID = P.userID
-JOIN
-    postsHasTags PT ON P.postID = PT.postID
-JOIN
-    tags T ON PT.tagID = T.tagID
-WHERE
-    U.userID = :userID_selected_from_all_Users_page; 
+    postsHasTags AS p
+JOIN 
+    tags AS t ON p.tagID = t.tagID
+JOIN 
+    posts ON p.postID = posts.postID;
 
--- DML operations for postsHasTags
+-- * INSERT a new record in postHasTags (Manage Post's Tags)
+INSERT INTO 
+postHasTags (postTagID, tagID, postID, dateTagged)
+VALUES (:selected_postTagID, :selectedTag, :selectedPostID, :selectedDate);
+
+-- * DELETE a record from postsHasTags/ a relationship between a Post and Tag
+DELETE FROM postsHasTags WHERE postTagID = :postTagID_selected_from_ManagePosts_Tags;
+
+
+-- DML operations for tags (same page as postsHasTags)
 -- ---------------------------------------------
 
--- * SELECT/DISPLAY show all data for postsHasTags
-SELECT *
-FROM postsHasTags;
+-- SELECT / display all tags alphabetically 
+SELECT * from tags
+ORDER BY tag
 
--- * INSERT a new relationship between a Post and a Tag
-INSERT INTO postsHasTags (postID, tagID, dateTagged)
-VALUES (:postID, :tagID, NOW());
+-- DELETE a tag
+DELETE FROM tags 
+WHERE tagID = :tagID_selected_from_tags;
 
--- DELETE a relationship between a Post and Tag
-DELETE FROM postsHasTags
-WHERE postID = :postID_to_delete AND tagID = :tagID_to_delete;
+-- INSERT a tag
+INSERT INTO tags
+VALUES (:tag_entered_by_user);
