@@ -33,14 +33,14 @@ CREATE TABLE posts (
 );
 
 DROP TABLE IF EXISTS postsHasTags;
--- Interaction table postsHasTags between Posts and tags;
+-- Interaction table postsHasTags between posts and tags;
 CREATE TABLE postsHasTags (
     postTagID INT(11) AUTO_INCREMENT NOT NULL,
     postID INT(11) NOT NULL,
     tagID INT(11) NOT NULL,
     dateTagged DATE NOT NULL, 
     PRIMARY KEY (postTagID),
-    FOREIGN KEY (postID) REFERENCES Posts (postID) ON DELETE CASCADE,
+    FOREIGN KEY (postID) REFERENCES posts (postID) ON DELETE CASCADE,
     FOREIGN KEY (tagID) REFERENCES tags (tagID) ON DELETE CASCADE
 );
 
