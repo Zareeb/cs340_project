@@ -4,20 +4,20 @@
 <table class="table">
     <thead>
         <tr>
+        
             {% for key in likes[0].keys() %}
-            {% if key not in ["likedByUserID", "userID"]%}
+                {% if key not in ["likedByUserID", "userID"]%}
 
-                {% if key in ["postedBy", "likedBy"] %}
+                    {% if key in ["postedBy", "likedBy"] %}
+                    
+                        <th>{{key}}</th>
+
+                    {% else %}
                 
-                    <th>{{key}}</th>
+                        <th class="centered-column">{{key}}</th>
 
-                {% else %}
-            
-                    <th class="centered-column">{{key}}</th>
-
+                    {%endif%}
                 {%endif%}
-            {%endif%}
-
             {% endfor %}
 
         </tr>
@@ -28,7 +28,6 @@
             {% for like in likes %}
             
             <tr>
-            
                 {% for key, val in like.items() %}
                     {% if key in ["likeID", "postID", "postedBy", "dateLiked"] %}
 
