@@ -40,6 +40,7 @@ CREATE TABLE postsHasTags (
     tagID INT(11) NOT NULL,
     dateTagged DATE NOT NULL, 
     PRIMARY KEY (postTagID),
+    UNIQUE (postID, tagID),
     FOREIGN KEY (postID) REFERENCES posts (postID) ON DELETE CASCADE,
     FOREIGN KEY (tagID) REFERENCES tags (tagID) ON DELETE CASCADE
 );
