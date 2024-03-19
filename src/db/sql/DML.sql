@@ -1,6 +1,5 @@
 /*
 Team 181 - Marina Hampton, Zareeb Lorenzana, & Skyler Santos
-* = required
 Date Updated: 03.18.2024
 Citation for the following SQL:
 Date: 2/14/2024
@@ -9,6 +8,7 @@ Source URL: https://canvas.oregonstate.edu/courses/1946034/pages/exploration-dat
 */
 
 -- DML operations for users
+-- ----------------------------------------------
 
 --  * SELECT/SHOW all users and relevant information for the Browse/list users page
 SELECT * FROM users;
@@ -222,5 +222,3 @@ WHERE tagID = :tagID_selected_from_tags;
 -- INSERT a tag
 INSERT INTO tags
 VALUES (:tag_entered_by_user);
-
-
