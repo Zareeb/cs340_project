@@ -13,9 +13,7 @@ Source URL: https://github.com/osu-cs340-ecampus/flask-starter-app
 
 """
 
-from flask import Blueprint, render_template, request, redirect
-from flask_mysqldb import MySQL
-from datetime import date
+from imports import *
 
 mysql = MySQL()
 
@@ -93,13 +91,14 @@ def likes():
                 VALUES (%s, %s, %s)
                 """
 
-        cur = mysql.connection.cursor()
-
-        values = (postID, likedByUserID, dateLiked)
-
-        cur.execute(query, values)
-
-        mysql.connection.commit()
+        try:
+            cur = mysql.connection.cursor()
+            values = (postID, likedByUserID, dateLiked)
+            cur.execute(query, values)
+            mysql.connection.commit()
+            
+        except IntegrityError as e:
+            return render_template("error.jinja2", warning="You already liked this post.")
     
     return redirect("/likes")
 
@@ -178,10 +177,14 @@ def likes_edit(likeID: int):
                 WHERE 
                     likeID = %s                
                 """
+                
+        try:
+            cur = mysql.connection.cursor()
+            values = (postID, likedByUserID, dateLiked, likeID)
+            cur.execute(query, values)
+            mysql.connection.commit()
+            
+        except IntegrityError as e:
+            return render_template("error.jinja2", warning="You already liked this post.")
         
-        cur = mysql.connection.cursor()
-        values = (postID, likedByUserID, dateLiked, likeID)
-        cur.execute(query, values)
-        mysql.connection.commit()
-
         return redirect('/likes')

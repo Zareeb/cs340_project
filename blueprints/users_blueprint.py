@@ -8,9 +8,7 @@ Source URL: https://github.com/osu-cs340-ecampus/flask-starter-app
 
 """
 
-from flask import Blueprint, render_template, request, redirect
-from flask_mysqldb import MySQL
-from datetime import date
+from imports import *
 
 mysql = MySQL()
 
@@ -48,12 +46,24 @@ def users():
                 signupDate) 
                 VALUES (%s, %s, %s, %s, %s, %s)
                 """
+        try:
+            cur = mysql.connection.cursor()
+            values = (username, firstName, lastName, email, phoneNumber, signupDate)
+            cur.execute(query, values)
+            mysql.connection.commit()
+                
+        except IntegrityError as e:
+            if "username" in str(e):
+                warning = "This username is not available."
+                
+            elif "email" in str(e):
+                warning = "This email is not available."
+                
+            elif "phoneNumber" in str(e):
+                warning = "This phone number is not available"
+                
+            return render_template("error.jinja2", warning=warning)
 
-        cur = mysql.connection.cursor()
-        values = (username, firstName, lastName, email, phoneNumber, signupDate)
-        cur.execute(query, values)
-        mysql.connection.commit()
-    
     return redirect("/users")
 
 # Deletes user from database
@@ -100,10 +110,24 @@ def users_edit(userID: int):
                 WHERE
                     userID = %s                
                 """
-        
-        cur = mysql.connection.cursor()
-        values = (username, firstName, lastName, email, phoneNumber, signupDate, userID)
-        cur.execute(query, values)
-        mysql.connection.commit()
+                
+        try:
+            cur = mysql.connection.cursor()
+            values = (username, firstName, lastName, email, phoneNumber, signupDate, userID)
+            cur.execute(query, values)
+            mysql.connection.commit()
+            
+        except IntegrityError as e:
+            if "username" in str(e):
+                warning = "This username is not available."
+                
+            elif "email" in str(e):
+                warning = "This email is not available."
+                
+            elif "phoneNumber" in str(e):
+                warning = "This phone number is not available"
+                
+            return render_template("error.jinja2", warning=warning)
+
 
         return redirect('/users')

@@ -8,9 +8,7 @@ Source URL: https://github.com/osu-cs340-ecampus/flask-starter-app
 
 """
 
-from flask import Blueprint, render_template, request, redirect
-from flask_mysqldb import MySQL
-from datetime import date
+from imports import *
 
 mysql = MySQL()
 

@@ -13,9 +13,7 @@ Source URL: https://github.com/osu-cs340-ecampus/flask-starter-app
 
 """
 
-from flask import Blueprint, render_template, request, redirect
-from flask_mysqldb import MySQL
-from datetime import date
+from imports import *
 
 mysql = MySQL()
 
@@ -64,25 +62,33 @@ def followers():
         return render_template("followers.jinja2", followers=data, userdata=userdata, page_title = "Followers", current_date = current_date)
     
     elif request.method == "POST":
-        followeeID = request.form["followeeID"]
-        followerID = request.form["followerID"]
-        followedSince = request.form["followedSince"]
+        try:
+            followeeID = request.form["followeeID"]
+            followerID = request.form["followerID"]
+            followedSince = request.form["followedSince"]
+            
+            if followeeID == followerID:
+                warning = "You cannot follow yourself."
+                raise IntegrityError
+            else:
+                query = """INSERT INTO followers (
+                        followeeID, 
+                        followerID, 
+                        followedSince)
+                        VALUES (%s, %s, %s)
+                        """
+            
+                cur = mysql.connection.cursor()
+                values = (followeeID, followerID, followedSince)
+                cur.execute(query, values)
+                mysql.connection.commit()
+        
+        except IntegrityError as e:
+            if "Duplicate entry" in str(e):
+                warning = "You are already following that user."
+                
+            return render_template("error.jinja2", warning=warning)
 
-        query = """INSERT INTO followers (
-                followeeID, 
-                followerID, 
-                followedSince)
-                VALUES (%s, %s, %s)
-                """
-
-        cur = mysql.connection.cursor()
-
-        values = (followeeID, followerID, followedSince)
-
-        cur.execute(query, values)
-
-        mysql.connection.commit()
-    
     return redirect("/followers")
 
 # Deletes relationship between two users
